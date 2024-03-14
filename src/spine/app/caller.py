@@ -8,6 +8,7 @@
 import inspect
 import logging
 import os
+import sys
 from typing import Tuple
 
 # 3rd Party Libraries
@@ -27,7 +28,11 @@ def get_caller() -> Tuple[str, str]:
 
         str: Directory path of root caller
     """
-    root_caller = inspect.stack()[-1][0].f_code.co_filename
+    root_caller = [
+        i[0].f_code.co_filename
+        for i in inspect.stack()
+        if os.path.dirname(sys.executable) not in i[0].f_code.co_filename
+    ][-1]
 
     LOGGER.debug("Retrieved root calling file", extra={"path": root_caller})
 
