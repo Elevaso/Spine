@@ -1,2 +1,2 @@
-# <Python Module Name Goes Here>
-<Describe the Python module here>
+# Spine
+Core library for use in all projects (i.e. standardized logging, etc.)

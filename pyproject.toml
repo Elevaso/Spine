@@ -3,10 +3,10 @@ requires = ["setuptools>=61.0"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name =  "py-project-toml" # FIXME Update project name
-description = "Sample Python Project for creating a new Python Module" # FIXME Update project description
+name =  "Spine"
+description = "Core library for use in all projects (i.e. standardized logging, etc.)"
 readme = "README.md"
-classifiers = [ # FIXME Update classifiers
+classifiers = [
     "Development Status :: 3 - Alpha",
     "Intended Audience :: Developers",
     "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)",
@@ -21,20 +21,20 @@ classifiers = [ # FIXME Update classifiers
     "Topic :: Software Development :: Libraries :: Python Modules"
 ]
 license = {file = "LICENSE"}
-requires-python = ">=3.6.1"
+requires-python = ">=3.8.1"
 dynamic = ["version", "dependencies"]
 
 [tool.setuptools.package-data]
-name = ["*.json"] # FIXME Update name with dir name & add other files needed for distribution
+spine = ["*.json"]
 
 [tool.setuptools.dynamic]
 dependencies = {file = ["requirements.txt"]}
-version = {attr = "src.name.__version__"} # FIXME Update name with dir name
+version = {attr = "src.spine.__version__"}
 
 [project.urls]
 Documentation = "https://gitlab.com/elevaso/project-templates/python-module" # FIXME Update documentation URL
-Source = "https://gitlab.com/elevaso/project-templates/python-module" # FIXME Update code repo URL
-Tracker = "https://gitlab.com/elevaso/project-templates/python-module" # FIXME Update issue URL
+Source = "https://gitlab.com/elevaso/libraries/spine"
+Tracker = "https://elevaso.atlassian.net/browse/SPIN"
 Changelog = "https://gitlab.com/elevaso/project-templates/python-module" # FIXME Update URL for Changelog
 
 [tool.bandit]
