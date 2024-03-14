@@ -10,7 +10,7 @@ import time
 
 
 # Code Repository Sub-Packages
-from spine.dtm import now  # pylint: disable=import-error
+from spine.dtm import now
 
 
 class TestUtcNow(unittest.TestCase):

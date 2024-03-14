@@ -9,7 +9,6 @@ now
 
 utc_now
 ~~~~~~~
-
 The :code:`utc_now` function allows you to get the current date & time in UTC with the time zone.
 
 Below is an example snippet that prints the current time with timezone.
