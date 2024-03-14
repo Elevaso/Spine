@@ -3,3 +3,4 @@
     * Initial module code
         * app.caller
         * dtm.now
+        * fobj.find_obj
