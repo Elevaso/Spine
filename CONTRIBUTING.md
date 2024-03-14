@@ -73,11 +73,7 @@ Prior to submitting merge requests, ensuring the following steps are complete:
 
 - [ ] Update version and CHANGELOG.md file
 - [ ] Run command for testing `python -m unittest discover tests/unit/`
-- [ ] Run command for code testing coverage
-    ```
-    coverage run -m unittest discover tests/unit/
-    coverage report -m
-    ```
+- [ ] Run command for code testing coverage `coverage run -m unittest discover tests/unit/ && coverage report -m`
 - [ ] Run command to generate docs and validate accuracy `rm -rf public/html && sphinx-build docs public/html`
 - [ ] Run command to package module for distribution `py -m build`
 

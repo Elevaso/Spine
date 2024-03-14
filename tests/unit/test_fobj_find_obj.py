@@ -14,9 +14,9 @@ from spine.fobj import find_obj
 
 class TestFind(unittest.TestCase):
     def call_func(
-        self, path, filename, search_dirs=4
+        self, path, filename, search_dirs=4, level="DEBUG"
     ) -> context.Tuple[str, str]:
-        with self.assertLogs(level="DEBUG") as log:
+        with self.assertLogs(level=level) as log:
             val = find_obj.find(path, filename, search_dirs)
 
         return log, val
@@ -27,7 +27,9 @@ class TestFind(unittest.TestCase):
         self.assertIsNotNone(val)
 
     def test_not_found(self):
-        log, val = self.call_func(os.path.dirname(__file__), "hello.world")
+        log, val = self.call_func(
+            os.path.dirname(__file__), "hello.world", level="INFO"
+        )
 
         self.assertIsNone(val)
         self.assertIn(
