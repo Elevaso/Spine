@@ -3,4 +3,6 @@
     * Initial module code
         * app.caller
         * dtm.now
+        * environ.load
+        * environ.var
         * fobj.find_obj
