@@ -5,7 +5,6 @@
 # http://www.sphinx-doc.org/en/master/config
 
 # Python Standard Libraries
-import codecs
 import os.path
 import re
 import sys
@@ -20,8 +19,6 @@ sys.path.append(os.path.join(ROOT, "src"))
 def read(*parts):
     with open(os.path.join(ROOT, "src", *parts), "r") as f:
         return f.read()
-
-    return codecs.open(os.path.join(ROOT, "src", *parts), 'r').read()
 
 def find_version(*file_paths):
     for i in os.listdir(os.path.join(ROOT, "src")):
@@ -52,7 +49,6 @@ rst_prolog = f"""
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = [
-    # "recommonmark",
     "sphinx.ext.autodoc",
     "sphinxcontrib.mermaid",
     "sphinx_rtd_theme",
@@ -60,17 +56,12 @@ extensions = [
     "sphinx_multiversion",
     "sphinx.ext.viewcode",  # Add links to highlighted source code
     "sphinx_mdinclude", # Markdown reader
+    "sphinx_copybutton", # Copy button for code blocks
 ]
 
 todo_include_todos = True
 
 autosectionlabel_prefix_document = True
-
-source_suffix = {
-    ".rst": "restructuredtext",
-    ".txt": "markdown",
-    ".md": "markdown",
-}
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ["_templates"]
@@ -88,7 +79,7 @@ exclude_patterns = []
 #
 html_theme = "sphinx_rtd_theme"
 
-html_logo = '_static/icon.svg'
+html_logo = '_static/logo.svg'
 
 html_css_files = [
     'css/main.css',
@@ -113,7 +104,7 @@ html_theme_options = {
     "prev_next_buttons_location": "bottom",
     "style_external_links": True,
     # 'vcs_pageview_mode': '',
-    "style_nav_header_background": "#404040",
+    "style_nav_header_background": "#030412",
     # Toc options
     "collapse_navigation": True,
     "sticky_navigation": True,

@@ -31,10 +31,36 @@ To execute this locally, run the following command:
    coverage run -m unittest discover tests/unit/
    coverage report -m
 
-.. todo::
+Reports
+^^^^^^^
 
-   # TODO Fix coverage # The latest code coverage report can be found `here <./coverage/>`_.
-   # TODO Link to all various testing output (SAST, Code Climate, Coverage)
+.. raw:: html
+
+    <ul id="coverage"></ul>
+    <script>
+        var ul = document.getElementById("coverage");
+
+        fetch("./coverage.json")
+            .then((response) => {
+            return response.json();
+            })
+            .then((data) => {
+            let json = data;
+
+            for (let i = 0; i < json.length; i++){
+                var li = document.createElement("li");
+
+                ul.appendChild(li);
+                li.innerHTML="<a href=\"coverage/" + json[i] +"\" target=\"_blank\">" + json[i] + "</a>";
+            }
+            })
+            .catch(function(){
+            var li = document.createElement("li");
+
+            ul.appendChild(li);
+            li.innerHTML="No reports available";
+            });
+    </script>
 
 Code Climate
 ------------

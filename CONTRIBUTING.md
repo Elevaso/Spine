@@ -57,17 +57,16 @@ See our [Environment Setup](https://elevaso.atlassian.net/wiki/x/84AR) page for 
 
 Below is a list of all external python libraries that are used for the development of this project, which can also be found in the [requirements-dev.txt](requirements-dev.txt) file located at the root of the project.
 
-* __[black](https://pypi.org/project/black/)__ - For auto-formatting Python code in Visual Studio Code
-* __[coverage](https://coverage.readthedocs.io/en/coverage-5.4/)__ - For evaluating test code coverage (lines of code covered by a test case)
-* __[coverage-badge](https://github.com/dbrgn/coverage-badge)__ - For displaying the coverage percent in GitLab as a badge
-* __[PyLint](https://pypi.org/project/pylint/)__ - Checking syntax and formatting during development
-* __[recommonmark](https://recommonmark.readthedocs.io/en/latest/)__ - For parsing Markdown into ReStructured Text format (i.e. README.md into Sphix Documentation output)
-* __[Sphinx](https://www.sphinx-doc.org/en/master/)__ - For generating documentation
-* __[sphinxcontrib-mermaid](https://github.com/mgaitan/sphinxcontrib-mermaid)__ - For auto-generating function call dependencies
-* __[sphinx-copybutton](https://sphinx-copybutton.readthedocs.io/en/latest/)__ - For adding copy button to code snippets
-* __[sphinx-multiversion](https://holzhaus.github.io/sphinx-multiversion/master/index.html)__ - For generating documentation per version
-* __[sphinx_rtd_theme](https://sphinx-rtd-theme.readthedocs.io/en/stable/)__ - For ReadTheDocs.io Theme in sphinx documentation output
-* __[unittest-xml-reporting](https://pypi.org/project/unittest-xml-reporting/)__ - For JUnit format to display in build pipeline output
+* [black](https://pypi.org/project/black/) - For auto-formatting Python code in Visual Studio Code
+* [coverage](https://coverage.readthedocs.io/en/coverage-5.4/) - For evaluating test code coverage (lines of code covered by a test case)
+* [coverage-badge](https://github.com/dbrgn/coverage-badge) - For displaying the coverage percent in GitLab as a badge
+* [PyLint](https://pypi.org/project/pylint/) - Checking syntax and formatting during development
+* [Sphinx](https://www.sphinx-doc.org/en/master/) - For generating documentation
+* [sphinxcontrib-mermaid](https://github.com/mgaitan/sphinxcontrib-mermaid) - For auto-generating function call dependencies
+* [sphinx-copybutton](https://sphinx-copybutton.readthedocs.io/en/latest/) - For adding copy button to code snippets
+* [sphinx-multiversion](https://holzhaus.github.io/sphinx-multiversion/master/index.html) - For generating documentation per version
+* [sphinx_rtd_theme](https://sphinx-rtd-theme.readthedocs.io/en/stable/) - For ReadTheDocs.io Theme in sphinx documentation output
+* [unittest-xml-reporting](https://pypi.org/project/unittest-xml-reporting/) - For JUnit format to display in build pipeline output
 
 ## Code Merge
 Prior to submitting merge requests, ensuring the following steps are complete:

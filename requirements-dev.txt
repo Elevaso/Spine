@@ -2,7 +2,6 @@ black
 coverage
 coverage-badge
 PyLint
-recommonmark
 Sphinx
 sphinxcontrib-mermaid
 sphinx-copybutton
