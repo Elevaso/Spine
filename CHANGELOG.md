@@ -8,3 +8,7 @@
         * fmt.sub
         * fobj.find_obj
         * iter.iter
+        * log.append
+        * log.config
+        * log.fmt
+        * log.fmt_json
