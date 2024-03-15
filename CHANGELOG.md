@@ -5,4 +5,6 @@
         * dtm.now
         * environ.load
         * environ.var
+        * fmt.sub
         * fobj.find_obj
+        * iter.iter
