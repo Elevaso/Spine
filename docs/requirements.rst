@@ -2,6 +2,4 @@
 
 Below is a list of all external python libraries that are used in this project, which can also be found in requirements.txt located at the root of the project. Every attempt has been made to avoid external dependencies to avoid compability and build issues, however, the external libraries used have been reviewed exhaustively.
 
-.. note::
-
-    No external package requirements exist
+* `python-dateutil <https://github.com/dateutil/dateutil>`_ - Timezone support for logging
