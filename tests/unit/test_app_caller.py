@@ -17,7 +17,14 @@ class TestGetCaller(unittest.TestCase):
         val = caller.get_caller()
 
         self.assertIsInstance(val, tuple)
-        self.assertIn("test_app_caller.py", val[0])
+        try:
+            self.assertIn("test_app_caller.py", val[0])
+        except Exception as ex:
+            import inspect
+
+            print([i[0].f_code.co_filename for i in inspect.stack()])
+
+            raise ex
         self.assertIn("unit", val[1])
         self.assertTrue(os.path.exists(val[0]))
         self.assertTrue(os.path.exists(val[1]))
