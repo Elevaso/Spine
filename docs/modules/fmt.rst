@@ -9,9 +9,9 @@ sub
 
 sub_value
 ~~~~~~~~~~
-The :code:`sub_value` function substitute placeholder patterns with values based on the provided dictionary of values. The placeholder pattern defaults to :code:`${NAME}` where :code:`NAME` is the placeholder name. If the variable type is a collection (list, set, tuple, dict) the function will call the :code:`spine.iter.iter.iterate` function to check for the pattern within the collection.
+The :meth:`spine.fmt.sub.sub_value` function substitute placeholder patterns with values based on the provided dictionary of values. The placeholder pattern defaults to :code:`${NAME}` where :code:`NAME` is the placeholder name. If the variable type is a collection (list, set, tuple, dict) the function will call the :meth:`spine.iter.iter.iterate` function to check for the pattern within the collection.
 
-Below is a simple example of how to use the :code:`sub_value` function.
+Below is a simple example of how to use the :meth:`spine.fmt.sub.sub_value` function.
 
 .. code-block:: python
 

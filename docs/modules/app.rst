@@ -9,7 +9,7 @@ caller
 
 get_caller
 ~~~~~~~~~~
-The :code:`get_caller` function retrieves the root code file and path. This is helpful if you have an application that references nested modules and you need to know the initiating code path.
+The :meth:`spine.app.caller.get_caller` function retrieves the root code file and path. This is helpful if you have an application that references nested modules and you need to know the initiating code path.
 
 For example, you create a python module named :code:`json_logger` that can be used by multiple python applications/scripts. You create a file called :code:`log_setup.py` with code checks for a file named :code:`log_config.json` stored at the application root directory. The module code looks like:
 

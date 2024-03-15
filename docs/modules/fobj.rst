@@ -9,7 +9,7 @@ find_obj
 
 find
 ~~~~~~~~~~
-The :code:`find` function will look for a specific file in the path provided and N parent directories where N is provided to the function.
+The :meth:`spine.fobj.find_obj.find` function will look for a specific file in the path provided and N parent directories where N is provided to the function.
 
 For example, if your directory structure looks like the following
 
@@ -44,6 +44,6 @@ The code to your :code:`app.py` would look like:
 
         return config
 
-The :code:`find_obj.find` function would first check the base directory where :code:`app.py` exists (:code:`code/applications/test_app/`). If no :code:`config.json` file is found, it will move up one director and search in :code:`code/applications/`. It will repeat this process until a file is found or the number of :code:`search_dirs` has been reached.
+The :meth:`spine.fobj.find_obj.find` function would first check the base directory where :code:`app.py` exists (:code:`code/applications/test_app/`). If no :code:`config.json` file is found, it will move up one director and search in :code:`code/applications/`. It will repeat this process until a file is found or the number of :code:`search_dirs` has been reached.
 
 .. autofunction:: spine.fobj.find_obj.find
