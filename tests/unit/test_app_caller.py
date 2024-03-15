@@ -21,7 +21,9 @@ class TestGetCaller(unittest.TestCase):
             self.assertIn("test_app_caller.py", val[0])
         except Exception as ex:
             import inspect
+            import sys
 
+            print(os.path.dirname(sys.executable))
             print([i[0].f_code.co_filename for i in inspect.stack()])
 
             raise ex
