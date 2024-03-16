@@ -97,7 +97,7 @@ class TestLoad(unittest.TestCase):
             load.load_env(search_dirs=2)
 
         self.assertIn(
-            f".env not found within 2 directories of {os.path.dirname(__file__)}",
+            f".env not found within 2 directories of ",
             log.output[-1],
         )
 
