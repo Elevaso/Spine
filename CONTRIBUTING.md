@@ -58,6 +58,7 @@ See our [Environment Setup](https://elevaso.atlassian.net/wiki/x/84AR) page for 
 Below is a list of all external python libraries that are used for the development of this project, which can also be found in the [requirements-dev.txt](requirements-dev.txt) file located at the root of the project.
 
 * [black](https://pypi.org/project/black/) - For auto-formatting Python code in Visual Studio Code
+* [build](https://build.pypa.io/en/stable/) - For packaging project distributions
 * [coverage](https://coverage.readthedocs.io/en/coverage-5.4/) - For evaluating test code coverage (lines of code covered by a test case)
 * [coverage-badge](https://github.com/dbrgn/coverage-badge) - For displaying the coverage percent in GitLab as a badge
 * [PyLint](https://pypi.org/project/pylint/) - Checking syntax and formatting during development
