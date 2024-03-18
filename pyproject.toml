@@ -24,15 +24,8 @@ license = {file = "LICENSE"}
 requires-python = ">=3.8.1"
 dynamic = ["version", "dependencies"]
 
-[tool.setuptools]
-package-dir = {"" = "src"}
-
-[tool.setuptools.packages.find]
-where = ["src"]
-namespaces = true
-
 [tool.setuptools.package-data]
-spine = ["log/data/*.json"]
+spine = ["*.json"]
 
 [tool.setuptools.dynamic]
 dependencies = {file = ["requirements.txt"]}

@@ -3,7 +3,8 @@ Getting Started
 
 To get started using this module, make sure you have access to the `Elevaso GitLab PyPi Registry <https://gitlab.com/api/v4/groups/81835940/packages/pypi>`_.
 
-For easy access, craete/update your `pip configuration file <https://pip.pypa.io/en/stable/topics/configuration/>`_. It should look similar to:a
+For easy access, you can update your local :code:`.pypirc` file, typically found in the home directory, with the following:
+
 
 .. code-block:: ini
 
