@@ -1,0 +1,62 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name =  "Spine"
+description = "Core library for use in all projects (i.e. standardized logging, etc.)"
+readme = "README.md"
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)",
+    "Natural Language :: English",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Software Development",
+    "Topic :: Software Development :: Libraries",
+    "Topic :: Software Development :: Libraries :: Python Modules"
+]
+license = {file = "LICENSE"}
+requires-python = ">=3.8.1"
+dynamic = ["version", "dependencies"]
+
+[tool.setuptools.package-data]
+spine = ["*.json"]
+
+[tool.setuptools.dynamic]
+dependencies = {file = ["requirements.txt"]}
+version = {attr = "src.spine.__version__"}
+
+[project.urls]
+Documentation = "https://gitlab.com/elevaso/project-templates/python-module" # FIXME Update documentation URL
+Source = "https://gitlab.com/elevaso/libraries/spine"
+Tracker = "https://elevaso.atlassian.net/browse/SPIN"
+Changelog = "https://gitlab.com/elevaso/project-templates/python-module" # FIXME Update URL for Changelog
+
+[tool.bandit]
+exclude_dirs = ["build","docs", "dist","tests","tools"]
+number = 4
+recursive = true
+targets = "src"
+
+[tool.black]
+line-length = 80
+
+[tool.pylint.format]
+max-line-length = "80"
+
+[tool.coverage.run]
+branch = true
+
+[tool.coverage.report]
+fail_under = 100
+
+[tool.pylint.'REPORTS']
+evaluation="10.0 - ((float(5 * error + warning + refactor + convention) / statement) * 10)"
+output-format="text"
+reports="no"
+score="yes"

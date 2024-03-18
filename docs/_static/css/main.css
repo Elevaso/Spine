@@ -1,0 +1,38 @@
+.logo {
+  max-width: 75px !important;
+}
+
+.wy-side-nav-search {
+  background-color: rgba(3, 4, 18, 1) !important;
+}
+
+.wy-side-nav {
+  background-color: rgba(66, 67, 70, 1) !important;
+}
+
+.version {
+  color: rgba(233, 236, 245, 1) !important;
+}
+
+.wy-nav-content {
+  max-width: calc(100vw - 300px);
+}
+
+@media screen and (max-width: 768px) {
+  .wy-nav-content {
+    max-width: 100vw;
+  }
+
+  .wy-nav-side.shift {
+    max-width: 50% !important;
+  }
+
+  .wy-nav-content-wrap.shift {
+    left: 50% !important;
+  }
+
+  .wy-nav-content-wrap .wy-nav-content {
+    padding: 1em;
+    margin: 1em;
+  }
+}

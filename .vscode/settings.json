@@ -1,0 +1,50 @@
+{
+  "python.formatting.provider": "black",
+  "python.testing.unittestEnabled": true,
+  "python.testing.pytestEnabled": false,
+  "python.linting.pylintEnabled": true,
+  "python.linting.enabled": true,
+  "pylint.args": [
+    "--rcfile=pyproject.toml"
+  ],
+  "black-formatter.args": [
+      "--config=pyproject.toml"
+  ],
+  "todo-tree.general.tags": ["BUG", "NOTE","FIXME","TODO"],
+  "todo-tree.highlights.customHighlight": {
+    "BUG": {
+      "icon": "bug",
+      "iconColour": "#BA2B2B"
+    },
+    "FIXME": {
+      "icon": "flame",
+      "iconColour": "#BA2B2B"
+    },
+    "TODO": {
+      "icon": "code",
+      "background": "#FFFB00",
+      "iconColour": "#FFFB00",
+      "foreground": "#000000"
+    },
+    "NOTE": {
+      "icon": "note",
+      "iconColour": "#5DCD4A",
+      "background": "#5DCD4A",
+      "foreground": "#FFFFFF"
+    }
+  },
+  "todo-tree.highlights.defaultHighlight": {
+    "icon": "alert",
+    "type": "line",
+    "foreground": "#FFFFFF",
+    "background": "#BA2B2B",
+    "opacity": 50,
+    "iconColour": "#FFFB00"
+  },
+  "todo-tree.tree.expanded": true,
+  "todo-tree.tree.flat": true,
+  "todo-tree.general.statusBar": "top three",
+  "todo-tree.filtering.excludeGlobs": [
+    "**/CONTRIBUTING.md"
+  ]
+}

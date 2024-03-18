@@ -1,0 +1,8 @@
+include:
+  - project: elevaso/devops/gitlab-ci
+    file: workflow.gitlab-ci.yml
+  - project: elevaso/devops/gitlab-ci
+    file: .gitlab/python.gitlab-ci.yml
+
+variables:
+  PY_VERSION_LIST: "3.9,3.10,3.11,3.12"

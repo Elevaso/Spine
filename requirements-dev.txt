@@ -1,0 +1,12 @@
+black
+build
+coverage
+coverage-badge
+PyLint
+Sphinx
+sphinxcontrib-mermaid
+sphinx-copybutton
+sphinx-mdinclude
+sphinx-multiversion
+sphinx_rtd_theme
+unittest-xml-reporting
