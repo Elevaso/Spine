@@ -10,7 +10,7 @@ import re
 import sys
 
 # 3rd Party Libraries
-import tomli
+import tomllib
 
 ROOT = os.path.join(os.path.abspath(os.path.dirname(__file__)), "..")
 
@@ -32,7 +32,7 @@ def find_version(*file_paths):
 
 # -- Project information -----------------------------------------------------
 with open(os.path.join(ROOT, "pyproject.toml"), "rb") as f:
-    project_data = tomli.load(f)
+    project_data = tomllib.load(f)
 
 project = project_data["project"]["name"]
 description = project_data["project"]["description"]
