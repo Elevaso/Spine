@@ -1,7 +1,8 @@
 """
 .. module:: context
     :platform: Unix, Windows
-    :synopsis: File for all test scripts to reference back to the main toolkit library
+    :synopsis: File for all test scripts to reference back to the main
+    toolkit library
 """
 
 # Python Standard Libraries
@@ -21,4 +22,3 @@ sys.path.insert(
         os.path.join(os.path.dirname(__file__), "..", "..", "src")
     ),
 )
-

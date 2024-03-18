@@ -32,8 +32,8 @@ def iterate(
         copy_val (bool, Optional): True/False contents of dict/list should be
         copied prior to modifying, defaults to True
 
-        custom_type_map (dict, Optional): Optional mapping of type and functions,
-        defaults to {}
+        custom_type_map (dict, Optional): Optional mapping of type and
+        functions, defaults to {}
 
     Raises:
         NotImplementedError: If value object type is not supported

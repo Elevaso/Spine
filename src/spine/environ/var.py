@@ -23,7 +23,9 @@ def get(name: str, default_val: object = None) -> object:
     Args:
         name (str): Name of the environment variable
 
-        default_val (object, Optional): Default value to return, defaults to None
+        default_val (object, Optional): Default value to return,
+        defaults to None
+
     Returns:
         object: Python object value, or None if not exists
     """
