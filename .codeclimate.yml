@@ -20,4 +20,3 @@ plugins:
 exclude_patterns:
   - ".vscode/**"
   - "docs/**/*"
-  - "LICENSE"
