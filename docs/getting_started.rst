@@ -8,9 +8,9 @@ For easy access, craete/update your `pip configuration file <https://pip.pypa.io
 .. code-block:: ini
 
     [global]
-    extra-index-url = https://__token__:${GITLAB_TOKEN}@gitlab.com/api/v4/projects/81835940/packages/pypi/simple
+    extra-index-url = https://__token__:{GITLAB_TOKEN}@gitlab.com/api/v4/projects/81835940/packages/pypi/simple
 
-Replace :code:`${GITLAB_TOKEN}` with your actual GitLab Personal Access Token.
+Replace :code:`{GITLAB_TOKEN}` with your actual GitLab Personal Access Token.
 
 Next, run an install and/or upgrade :code:`pip install --upgrade <project_name>`.
 
