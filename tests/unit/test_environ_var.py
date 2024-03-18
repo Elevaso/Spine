@@ -32,9 +32,11 @@ class TestSet(unittest.TestCase):
     def setUp(self) -> None:
         os.environ["hello"] = "world"
 
-    def call_func(
-        self, name, val, overwrite=False, set_val=True, level="DEBUG"
-    ) -> context.Tuple[str, str]:
+    def call_func(self, name, val, **kwargs) -> context.Tuple[str, str]:
+        overwrite = kwargs("overwrite", False)
+        set_val = kwargs("set_val", True)
+        level = kwargs("level", "DEBUG")
+
         with self.assertLogs(level=level) as log:
             val = var.set(name, val, overwrite, set_val)
 
