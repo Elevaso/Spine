@@ -92,8 +92,10 @@ def __check(
     return_val = False
     line_num_text = f"Line number {line_num}" if line_num else "Content"
 
-    if __valid(content.strip(), line_num_text):
-        key, value = split_key_val(content.strip())
+    content = content.strip()
+
+    if __valid(content, line_num_text):
+        key, value = split_key_val(content)
 
         if key and value:
             return_val = var.set(key, value, overwrite, set_val)
@@ -117,7 +119,7 @@ def __valid(content: str, line_num_text: str) -> bool:
         bool: True/False if content is valid for continuing
     """
     if content is None:
-        LOGGER.debug(f"{line_num_text} is empty, skipping") # pragma: no cover
+        LOGGER.debug(f"{line_num_text} is empty, skipping")  # pragma: no cover
     elif len(content) == 0:
         LOGGER.debug(f"{line_num_text} is blank, skipping")
     elif content[0] == "#":
