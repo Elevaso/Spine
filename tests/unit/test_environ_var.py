@@ -33,9 +33,9 @@ class TestSet(unittest.TestCase):
         os.environ["hello"] = "world"
 
     def call_func(self, name, val, **kwargs) -> context.Tuple[str, str]:
-        overwrite = kwargs("overwrite", False)
-        set_val = kwargs("set_val", True)
-        level = kwargs("level", "DEBUG")
+        overwrite = kwargs.get("overwrite", False)
+        set_val = kwargs.get("set_val", True)
+        level = kwargs.get("level", "DEBUG")
 
         with self.assertLogs(level=level) as log:
             val = var.set(name, val, overwrite, set_val)
@@ -52,7 +52,7 @@ class TestSet(unittest.TestCase):
     def test_overwrite(self):
         self.assertEqual(os.environ["hello"], "world")
 
-        _, val = self.call_func("hello", "there", True)
+        _, val = self.call_func("hello", "there", overwrite=True)
 
         self.assertIsInstance(val, bool)
         self.assertTrue(val)
