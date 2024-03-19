@@ -1,7 +1,7 @@
 Getting Started
 ---------------
 
-To get started using this module, make sure you have access to the `Elevaso GitLab PyPi Registry <https://gitlab.com/api/v4/groups/81835940/packages/pypi>`_.
+To get started using this module, make sure you have access to the `Elevaso GitLab PyPi Registry <https://gitlab.com/groups/elevaso/-/packages/?type=PyPI&version=&orderBy=created_at&sort=desc&search[]=>`_.
 
 For easy access, you can update your local :code:`.pypirc` file, typically found in the home directory, with the following:
 
@@ -9,7 +9,7 @@ For easy access, you can update your local :code:`.pypirc` file, typically found
 .. code-block:: ini
 
     [global]
-    extra-index-url = https://__token__:{GITLAB_TOKEN}@gitlab.com/api/v4/projects/81835940/packages/pypi/simple # gitleaks:allow
+    extra-index-url = https://__token__:{GITLAB_TOKEN}@gitlab.com/api/v4/groups/81835940/-/packages/pypi/simple # gitleaks:allow
 
 Replace :code:`{GITLAB_TOKEN}` with your actual GitLab Personal Access Token.
 
