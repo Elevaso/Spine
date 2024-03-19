@@ -77,11 +77,13 @@ Below is a list of all external python libraries that are used for the developme
 
 Prior to submitting merge requests, ensuring the following steps are complete:
 
-* [ ] Update version and CHANGELOG.md file
+* [ ] Update version in `src/name/__init__.py` where `name` is the name of your module
+- [ ] Add entry to CHANGELOG.md file
 * [ ] Run command for testing `python -m unittest discover tests/unit/`
 * [ ] Run command for code testing coverage `coverage run -m unittest discover tests/unit/ && coverage report -m`
 * [ ] Run command to generate docs and validate accuracy `rm -rf public/html && sphinx-build docs public/html`
 * [ ] Run command to package module for distribution `py -m build`
+* [ ] Add git tag to your commit by running `git tag -a #.#.#` where `#.#.#` is the version
 
 ## Code of Conduct
 

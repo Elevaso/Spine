@@ -32,10 +32,10 @@ dependencies = {file = ["requirements.txt"]}
 version = {attr = "src.spine.__version__"}
 
 [project.urls]
-Documentation = "https://gitlab.com/elevaso/project-templates/python-module" # FIXME Update documentation URL
+Documentation = "https://core-elevaso-libraries-f91e91dd6b5cf1513b3c3ab02ff13569300f3f5a.gitlab.io/main/index.html"
 Source = "https://gitlab.com/elevaso/libraries/spine"
 Tracker = "https://elevaso.atlassian.net/browse/SPIN"
-Changelog = "https://gitlab.com/elevaso/project-templates/python-module" # FIXME Update URL for Changelog
+Changelog = "https://core-elevaso-libraries-f91e91dd6b5cf1513b3c3ab02ff13569300f3f5a.gitlab.io/main/change_log.html"
 
 [tool.bandit]
 exclude_dirs = ["build","docs", "dist","tests","tools"]
