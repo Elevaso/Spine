@@ -1,8 +1,19 @@
-include:
-  - project: elevaso/devops/gitlab-ci
-    file: workflow.gitlab-ci.yml
-  - project: elevaso/devops/gitlab-ci
-    file: .gitlab/python.gitlab-ci.yml
+# include:
+#   - project: elevaso/devops/gitlab-ci
+#     file: workflow.gitlab-ci.yml
+#   - project: elevaso/devops/gitlab-ci
+#     file: .gitlab/python.gitlab-ci.yml
 
 variables:
   PY_VERSION_LIST: "3.9,3.10,3.11,3.12"
+
+
+var-test:
+  image: python:latest
+  script:
+    - echo "CI_COMMIT_TAG: ${CI_COMMIT_TAG}"
+    - echo "CI_PIPELINE_SOURCE: ${CI_PIPELINE_SOURCE}"
+    - echo "CI_MERGE_REQUEST_ID: ${CI_MERGE_REQUEST_ID}"
+    - echo "CI_COMMIT_BRANCH: ${CI_COMMIT_BRANCH}"
+    - echo "CI_DEFAULT_BRANCH: ${CI_DEFAULT_BRANCH}"
+    - echo "CI_COMMIT_REF_PROTECTED: ${CI_COMMIT_REF_PROTECTED}"
