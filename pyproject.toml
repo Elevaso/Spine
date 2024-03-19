@@ -5,6 +5,9 @@ build-backend = "setuptools.build_meta"
 [project]
 name =  "Spine"
 description = "Core library for use in all projects (i.e. standardized logging, etc.)"
+authors = [
+  {name = "Elevaso, LLC", email = "code@elevaso.org"}
+]
 readme = "README.md"
 classifiers = [
     "Development Status :: 3 - Alpha",
