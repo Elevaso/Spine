@@ -23,4 +23,4 @@ def utc_now() -> datetime.datetime:
     Returns:
         datetime.datetime representing current timestamp
     """
-    return datetime.datetime.now(datetime.UTC)
+    return datetime.datetime.now(datetime.timezone.utc)
