@@ -2,25 +2,36 @@
   "version": 1,
   "disable_existing_loggers": false,
   "formatters": {
-      "json":{
-          "include_keys":["message", "module", "levelname", "name", "funcName", "asctime", "thread", "threadName"],
-          "()":"spine.log.fmt_json.JsonFormatter",
-          "timestamp_key": "timestamp",
-          "session_key":"exec_id",
-          "timezone":"UTC"
-      }
+    "json": {
+      "include_keys": [
+        "message",
+        "module",
+        "levelname",
+        "name",
+        "funcName",
+        "asctime",
+        "thread",
+        "threadName"
+      ],
+      "()": "spine.log.fmt_json.JsonFormatter",
+      "timestamp_key": "timestamp",
+      "session_key": "exec_id",
+      "timezone": "UTC"
+    }
   },
   "handlers": {
-      "console": {
-          "class": "logging.StreamHandler",
-          "level": "DEBUG",
-          "formatter": "json",
-          "stream": "ext://sys.stdout"
-      }
+    "console": {
+      "class": "logging.StreamHandler",
+      "level": "DEBUG",
+      "formatter": "json",
+      "stream": "ext://sys.stdout"
+    }
   },
   "root": {
-      "level": "INFO",
-      "handlers": ["console"],
-      "propogate":"no"
+    "level": "INFO",
+    "handlers": [
+      "console"
+    ],
+    "propogate": "no"
   }
 }
