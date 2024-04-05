@@ -42,6 +42,7 @@ RESERVED_ATTRS = (
     "processName",
     "relativeCreated",
     "stack_info",
+    "taskName",
     "thread",
     "threadName",
 )
