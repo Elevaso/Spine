@@ -46,3 +46,22 @@ def find(path: str, file_name: str, search_dirs: int = 4) -> str:
     )
 
     return None
+
+def check(path: str, file_name: str) -> bool:
+    """Function to check if a file exists
+
+    Args:
+        path (str): Directory path of the file to load
+
+        file_name (str): Name of the file (with extension)
+
+    Returns:
+        bool: True/False if file exists
+    """
+    path = os.path.expanduser(path)
+
+    if os.path.isfile(os.path.join(path, file_name)):
+        return True
+    else:
+        LOGGER.warning(f"File does not exist at {path}/{file_name}")
+        return False

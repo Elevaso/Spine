@@ -7,6 +7,12 @@ Functions/classes for working with file objects
 find_obj
 ^^^^^^^^
 
+check
+~~~~~~~~~~
+The :meth:`spine.fobj.find_obj.check` function will expand the path provided and validate it is a file, returning True or False.
+
+.. autofunction:: spine.fobj.find_obj.check
+
 find
 ~~~~~~~~~~
 The :meth:`spine.fobj.find_obj.find` function will look for a specific file in the path provided and N parent directories where N is provided to the function.

@@ -12,6 +12,25 @@ import unittest
 from spine.fobj import find_obj
 
 
+class TestCheck(unittest.TestCase):
+    def test_found(self):
+        val = find_obj.check(os.path.dirname(__file__), "context.py")
+
+        self.assertTrue(val)
+
+    def test_not_found(self):
+        with self.assertLogs(level="WARN") as log:
+            val = find_obj.check(
+                os.path.dirname(__file__), "hello.world"
+            )
+
+        self.assertFalse(val)
+        self.assertIn(
+            f"File does not exist at {os.path.dirname(__file__)}",
+            log.output[-1],
+        )
+
+
 class TestFind(unittest.TestCase):
     def call_func(
         self, path, filename, search_dirs=4, level="DEBUG"

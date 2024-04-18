@@ -1,0 +1,64 @@
+{
+  "description": "Test CLI Description",
+  "arguments": [
+    {
+      "type": "group",
+      "arguments": [
+        {
+          "name": "--quiet",
+          "flag": null,
+          "dest": "quiet",
+          "help": "Quiet logging (only warning, error, or critical)",
+          "action": "store_true"
+        },
+        {
+          "name": "--verbose",
+          "flag": null,
+          "dest": "verbose",
+          "help": "Verbose logging output",
+          "action": "store_true"
+        }
+      ]
+    }
+  ],
+  "subparsers": [
+    {
+      "command": "config",
+      "help": "View and modify configuration",
+      "subparsers": [
+        {
+          "command": "list",
+          "help": "List configuration",
+          "defaults": {
+            "func": "list_config"
+          }
+        },
+        {
+          "command": "show",
+          "help": "Show configuration"
+        },
+        {
+          "command": "add",
+          "help": "Add configuration",
+          "arguments": [
+            {
+              "name": "--proxy",
+              "metavar": "N",
+              "nargs": "+",
+              "help": "Add proxy to configuration file"
+            },
+            {
+              "name": "--name",
+              "flag": "-n",
+              "dest": "name",
+              "help": "Name of the user for display"
+            }
+          ],
+          "defaults": {
+            "func": "add_config"
+          }
+        }
+      ]
+    }
+  ]
+}
