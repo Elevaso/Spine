@@ -80,15 +80,18 @@ class TestArgsToDict(unittest.TestCase):
     @mock.patch("sys.argv", BASIC_ARGS)
     def test_exec_func_not_found(self):
         with self.assertRaises(AttributeError) as cm:
-            exc.main(
-                config_path=DEFAULT_PATH,
-                func_map={},
-                cli_version="0.1.0",
-            )
+            with self.assertLogs(level="INFO") as log:
+                with mock.patch("sys.stdout", new=StringIO()):
+                    exc.main(
+                        config_path=DEFAULT_PATH,
+                        func_map={},
+                        cli_version="0.1.0",
+                    )
 
         self.assertEqual(
             str(cm.exception), "Command/Function list_config not found"
         )
+
 
 if __name__ == "__main__":
     unittest.main()  # pragma: no cover
