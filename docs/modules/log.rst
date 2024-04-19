@@ -183,7 +183,7 @@ The :meth:`spine.log.fmt.BaseFormatter` class provides the foundational function
 
 1. Date/time formatting
 2. Timezone support (defaults to UTC)
-3. Support for the :code:`extra` keyword argument support
+3. Support for the :code:`extra` keyword argument
 
 .. code-block::
 
@@ -263,5 +263,19 @@ fmt_standard
 StandardFormatter
 ~~~~~~~~~~~~~~~~~
 The :meth:`spine.log.fmt_standard.StandardFormatter` inherits from the :meth:`spine.log.fmt.BaseFormatter` but provides an output function to convert logs in standard (i.e. Command Line Interface) format.
+
+The benefit to using this formatter is that the :code:`extra` keyword arguments are displayed, allowing you to easily switch between JSON and standard (CLI) formatting.
+
+A logging message like:
+
+.. code-block::
+
+   LOGGER.info('testing', extra={'test1': 'hello', 'test2': 'there'})
+
+would be displayed as:
+
+.. code-block:: shell
+
+    [INFO]2024-04-19 10:21:50..module.function..testing || Extra || [test1 || hello]..[test2 || there]
 
 .. autoclass:: spine.log.fmt_standard.StandardFormatter

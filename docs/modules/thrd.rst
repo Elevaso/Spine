@@ -26,8 +26,8 @@ For example, if you need to connect to a database during thread initialization, 
         def disconnect(self):
             # Database disconnection code goes here
 
-        init_func = connect
-        stop_func = disconnect
+        init_func = self.connect
+        stop_func = self.disconnect
 
 The corresponding code to use the DBThread class above would look like:
 
@@ -58,6 +58,7 @@ The corresponding code to use the DBThread class above would look like:
 
 .. autoclass:: spine.thrd.base.BaseThread
     :special-members: __init__
+
 mgr
 ^^^^^^
 
@@ -67,7 +68,7 @@ The :meth:`spine.thrd.mgr.create` function will generate X number of threads bas
 
 A basic example looks like:
 
-.. code-block::python
+.. code-block:: python
 
     from spine.thrd.base import BaseThread
     from spine.thrd.mgr import create
@@ -79,7 +80,7 @@ A basic example looks like:
 
 An example using python queue looks like:
 
-.. code-block::python
+.. code-block:: python
 
     import queue
     from spine.thrd.base import BaseThread
@@ -116,7 +117,7 @@ The :meth:`spine.thrd.mgr.wait_queue_empty` function checks a shared queue until
 
 Example code:
 
-.. code-block::python
+.. code-block:: python
 
     import queue
     from spine.thrd.base import BaseThread
