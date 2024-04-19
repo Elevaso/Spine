@@ -10,6 +10,7 @@
         * cli.ver
         * log.fmt_standard
         * thrd.base
+        * thrd.mgr
 * Updated
     * Added check function
         * fobj.find_obj

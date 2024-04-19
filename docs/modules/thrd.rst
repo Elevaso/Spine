@@ -58,3 +58,42 @@ The corresponding code to use the DBThread class above would look like:
 
 .. autoclass:: spine.thrd.base.BaseThread
     :special-members: __init__
+mgr
+^^^^^^
+
+create
+~~~~~~~~~~
+The :meth:`spine.thrd.mgr.create` function will generate X number of threads based on the class and number requested. Optionally, you can pass in additional parameters for the thread initialization (such as credentials to establish separate database connections) and shared python queue.
+
+A basic example looks like:
+
+.. code-block::python
+
+    from spine.thrd.base import BaseThread
+    from spine.thrd.mgr import create
+
+
+    thread_list = create(10, BaseThread)
+
+    _ = [t.join() for t in thread_list] # Wait until all threads are finished running
+
+An example using python queue looks like:
+
+.. code-block::python
+
+    import queue
+    from spine.thrd.base import BaseThread
+    from spine.thrd.mgr import create
+
+    q = queue.Queue()
+    q.put({"test": "data"})
+
+    thread_list = create(10, BaseThread, q=q)
+
+    q.join() # Wait until queue is empty
+
+    # Print the number of queue records processed or errored
+    print(sum([t.rows_processed for t in thread_list]))
+    print(sum([t.rows_errored for t in thread_list]))
+
+.. autofunction:: spine.thrd.mgr.create
