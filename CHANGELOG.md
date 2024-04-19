@@ -9,6 +9,7 @@
         * cli.setup
         * cli.ver
         * log.fmt_standard
+        * thrd.base
 * Updated
     * Added check function
         * fobj.find_obj
