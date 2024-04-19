@@ -97,3 +97,39 @@ An example using python queue looks like:
     print(sum([t.rows_errored for t in thread_list]))
 
 .. autofunction:: spine.thrd.mgr.create
+
+has_working_thread
+~~~~~~~~~~~~~~~~~~
+The :meth:`spine.thrd.mgr.has_working_thread` function checks all threads provided and returns True if any are active, or False if none are active.
+
+.. autofunction:: spine.thrd.mgr.has_working_thread
+
+thread_metrics
+~~~~~~~~~~~~~~~~~~
+The :meth:`spine.thrd.mgr.thread_metrics` function calculates metrics from the threads.
+
+.. autofunction:: spine.thrd.mgr.thread_metrics
+
+wait_queue_empty
+~~~~~~~~~~~~~~~~~~
+The :meth:`spine.thrd.mgr.wait_queue_empty` function checks a shared queue until all items have been processed or there are no active threads, periodically logging the estimated size of the queue.
+
+Example code:
+
+.. code-block::python
+
+    import queue
+    from spine.thrd.base import BaseThread
+    from spine.thrd.mgr import create, thread_metrics, wait_queue_empty
+
+    q = queue.Queue()
+    q.put({"test": "data"})
+
+    thread_list = create(10, BaseThread, q=q)
+
+    wait_queue_empty(q, thread_list)
+
+    # Print the number of queue records processed or errored
+    print(thread_metrics(thread_list))
+
+.. autofunction:: spine.thrd.mgr.wait_queue_empty

@@ -7,6 +7,7 @@
 # Python Standard Libraries
 import logging
 import queue
+import time
 
 # 3rd Party Libraries
 
@@ -62,3 +63,79 @@ def create(
     LOGGER.info(f"Created {len(thread_list)} {class_name} thread(s)")
 
     return thread_list
+
+
+def has_working_thread(thread_list: list) -> bool:
+    """Checks if there are threads still alive
+
+    Args:
+        thread_list (list): List of thread objects
+
+    Returns:
+        bool: True/False if has at least one thread alive
+    """
+    for t in thread_list:
+        if t.is_alive():
+            return True
+
+    return False
+
+
+def thread_metrics(thread_list: list) -> tuple[int, int, int]:
+    """Retrieves built-in metrics from all threads
+
+    Args:
+        thread_list (list): List of thread objects
+
+    Returns:
+        tuple: Containing
+            rows_processed: Number of queue records processed for all threads
+            rows_errored: Number of queue records errored for all threads
+            threads: Number of threads
+    """
+    return (
+        sum([t.rows_processed for t in thread_list]),
+        sum([t.rows_errored for t in thread_list]),
+        len(thread_list),
+    )
+
+
+def wait_queue_empty(q: queue.Queue, thread_list: list, interval: int = 5):
+    """Check if a queue is empty and outputs logging messages, additionally
+    checks if there are threads alive to prevent waiting for a queue to finish
+    if all worker threads have stopped
+
+    Args:
+        q (queue.Queue): Queue to check for empty status
+
+        thread_list (list): List of threads working the queue
+
+        interval (int, Optional): Interval in seconds to print queue depth,
+        defaults to 5
+
+        .. note::
+
+            If set to 0, the queue will not be actively checked while printing
+            status message, instead it will wait until the queue is empty
+            through the queue.join() function
+
+    Raises:
+        Exception: If queue is not empty and no working threads in thread_list
+    """
+    if interval > 0:
+        i = 0
+        while not q.empty():
+            time.sleep(1)
+
+            if has_working_thread(thread_list):
+                i += 1
+
+                if i == interval:
+                    LOGGER.info(f"{q.qsize()} Records in Queue")
+                    i = 0
+            else:
+                raise Exception(
+                    f"{q.qsize()} records in queue with no active threads"
+                )
+
+    q.join()
