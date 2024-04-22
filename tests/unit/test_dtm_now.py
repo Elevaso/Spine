@@ -1,5 +1,7 @@
 # pyright: reportMissingImports=false
-# pylint: disable=missing-module-docstring, missing-class-docstring, missing-function-docstring
+# pylint: disable=missing-module-docstring
+# pylint: disable=missing-class-docstring
+# pylint: disable=missing-function-docstring
 
 # Python Standard Libraries
 import datetime
