@@ -91,6 +91,7 @@ def has_working_thread(thread_list: list) -> bool:
 
     return False
 
+
 # pylint: disable=unsubscriptable-object
 def thread_metrics(thread_list: list) -> tuple[int, int, int]:
     """Retrieves built-in metrics from all threads

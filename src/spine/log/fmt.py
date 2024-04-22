@@ -13,7 +13,7 @@ import re
 import uuid
 
 # 3rd Party Libraries
-from dateutil import tz
+from dateutil import tz  # pylint: disable=import-error
 
 # Project Specific Libraries
 from spine.fmt.sub import sub_value
