@@ -4,7 +4,6 @@
 # pylint: disable=missing-function-docstring
 
 # Python Standard Libraries
-import context
 import queue
 import time
 import unittest
@@ -13,6 +12,7 @@ import unittest
 
 
 # Code Repository Sub-Packages
+import context  # pylint: disable=unused-import
 from spine.thrd import base
 
 

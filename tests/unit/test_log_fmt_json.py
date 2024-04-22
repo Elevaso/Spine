@@ -4,7 +4,6 @@
 # pylint: disable=missing-function-docstring
 
 # Python Standard Libraries
-import context
 from io import StringIO
 import json
 import logging.config
@@ -14,6 +13,7 @@ import unittest
 
 
 # Code Repository Sub-Packages
+import context  # pylint: disable=unused-import
 from common import setup_logger
 from spine.log import append, fmt_json
 

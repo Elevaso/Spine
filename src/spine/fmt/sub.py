@@ -8,12 +8,13 @@
 from collections import OrderedDict
 import logging
 import re
+from typing import Match
 
 # 3rd Party Libraries
 
 
 # Project Specific Libraries
-from spine.iter import iter
+from spine.itr import itr
 
 LOGGER = logging.getLogger(__name__)
 
@@ -48,7 +49,7 @@ def sub_value(value: object, sub_values: dict, **kwargs) -> object:
         object: Updated object with values substituted
     """
 
-    def __return_match_val(match: re.Match) -> str:
+    def __return_match_val(match: Match) -> str:
         """Return the match value
 
         Args:
@@ -65,8 +66,8 @@ def sub_value(value: object, sub_values: dict, **kwargs) -> object:
 
         if output and not isinstance(output, str):
             return str(output)
-        else:
-            return output
+
+        return output
 
     def __sub_str(str_obj: str) -> str:
         """Substitute pattern with value for a given str
@@ -90,13 +91,13 @@ def sub_value(value: object, sub_values: dict, **kwargs) -> object:
     error_not_exist = kwargs.pop("error_not_exist", False)
 
     if sub_values and len(sub_values) > 0:
-        return iter.iterate(
+        return itr.iterate(
             value,
             copy_val=kwargs.pop("copy_val", True),
             custom_type_map={str: __sub_str},
         )
-    else:
-        return value
+
+    return value
 
 
 def __get_sub_value(
@@ -127,9 +128,9 @@ def __get_sub_value(
     """
     try:
         return sub_values[key]
-    except KeyError as excp:
+    except KeyError:
         if error_not_exist:
             raise KeyError(f"Value {key} not found")
-        else:
-            LOGGER.debug("Value %s not found, returning %s", key, default_val)
-            return default_val
+
+        LOGGER.debug("Value %s not found, returning %s", key, default_val)
+        return default_val

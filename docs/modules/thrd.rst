@@ -35,14 +35,14 @@ The corresponding code to use the DBThread class above would look like:
 
     import queue
 
-    q = queue.Queue() # Python shared queue between threads
+    thread_queue = queue.Queue() # Python shared queue between threads
 
-    q.put({"test": "value"}) # Insert values into the queue
+    thread_queue.put({"test": "value"}) # Insert values into the queue
 
     thread_list = []
 
     for x in range(10):
-        thread = DBThread(worker_queue=q, thread_num=x, db_user="name", db_pwd="password", db_instance="test.example")
+        thread = DBThread(worker_queue=thread_queue, thread_num=x, db_user="name", db_pwd="password", db_instance="test.example")
 
         thread.name = DBThread.__name__ + str(x)
 
@@ -86,12 +86,12 @@ An example using python queue looks like:
     from spine.thrd.base import BaseThread
     from spine.thrd.mgr import create
 
-    q = queue.Queue()
-    q.put({"test": "data"})
+    thread_queue = queue.Queue()
+    thread_queue.put({"test": "data"})
 
-    thread_list = create(10, BaseThread, q=q)
+    thread_list = create(10, BaseThread, thread_queue=thread_queue)
 
-    q.join() # Wait until queue is empty
+    thread_queue.join() # Wait until queue is empty
 
     # Print the number of queue records processed or errored
     print(sum([t.rows_processed for t in thread_list]))
@@ -123,12 +123,12 @@ Example code:
     from spine.thrd.base import BaseThread
     from spine.thrd.mgr import create, thread_metrics, wait_queue_empty
 
-    q = queue.Queue()
-    q.put({"test": "data"})
+    thread_queue = queue.Queue()
+    thread_queue.put({"test": "data"})
 
-    thread_list = create(10, BaseThread, q=q)
+    thread_list = create(10, BaseThread, thread_queue=thread_queue)
 
-    wait_queue_empty(q, thread_list)
+    wait_queue_empty(thread_queue, thread_list)
 
     # Print the number of queue records processed or errored
     print(thread_metrics(thread_list))

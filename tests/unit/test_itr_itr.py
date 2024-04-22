@@ -4,14 +4,14 @@
 # pylint: disable=missing-function-docstring
 
 # Python Standard Libraries
-import context
 import unittest
 
 # 3rd Party Libraries
 
 
 # Code Repository Sub-Packages
-from spine.iter import iter
+import context  # pylint: disable=unused-import
+from spine.itr import itr
 
 
 class TestIterate(unittest.TestCase):
@@ -23,12 +23,12 @@ class TestIterate(unittest.TestCase):
         custom_type_map: dict = {},
     ) -> context.Tuple[object, object]:
         if log_level == "NOTSET":
-            output = iter.iterate(value, copy_val, custom_type_map)
+            output = itr.iterate(value, copy_val, custom_type_map)
 
             log = None
         else:
             with self.assertLogs(level=log_level) as log:
-                output = iter.iterate(value, copy_val, custom_type_map)
+                output = itr.iterate(value, copy_val, custom_type_map)
 
         return output, log
 

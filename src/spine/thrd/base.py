@@ -52,11 +52,9 @@ class BaseThread(threading.Thread):
         self.rows_errored = 0
 
         if self.init_func:
-            self.init_func(**kwargs)
+            self.init_func(**kwargs)  # pylint: disable=not-callable
 
-        LOGGER.debug(
-            f"Initialized {self.name} thread",
-        )
+        LOGGER.debug("Initialized %(name)s thread", {"name": self.name})
 
     def run(self):
         """Function to run the thread for processing"""
@@ -64,7 +62,7 @@ class BaseThread(threading.Thread):
             if self.queue:
                 self.process_queue()
             else:
-                self.run_func()
+                self.run_func()  # pylint: disable=not-callable
         else:
             LOGGER.error(
                 "Unable to run thread, no function found",
@@ -79,17 +77,17 @@ class BaseThread(threading.Thread):
             try:
                 record = self.queue.get()
 
-                self.run_func(**record)
+                self.run_func(**record)  # pylint: disable=not-callable
 
                 self.rows_processed += 1
-            except Exception as e:
+            except Exception as exc:
                 self.rows_errored += 1
 
                 LOGGER.error(
                     "Error processing record",
                     exc_info=True,
                     extra={
-                        "error": str(e),
+                        "error": str(exc),
                         **record,
                         "thread_name": self.name,
                     },
@@ -98,19 +96,24 @@ class BaseThread(threading.Thread):
             self.queue.task_done()
 
             LOGGER.debug(
-                f"Processed row",
+                "Processed row",
                 extra={"thread_name": self.name},
             )
 
     def __del__(self):
         """De-initialize the class calling stop_func if required"""
         if self.stop_func:
-            LOGGER.debug(f"De-initializing thread {self.name}")
+            LOGGER.debug(
+                "De-initializing thread %(name)s",
+                {"name": self.name}
+            )
+
             try:
-                self.stop_func()
-            except Exception as e:
+                self.stop_func()  # pylint: disable=not-callable
+            except Exception as exc:
                 LOGGER.warning(
-                    f"Error while terminating worker thread {self.name}",
+                    "Error while terminating worker thread %(name)s",
+                    {"name": self.name},
                     exc_info=True,
-                    extra={"error": str(e), "thread_name": self.name},
+                    extra={"error": str(exc), "thread_name": self.name},
                 )

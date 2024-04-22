@@ -74,7 +74,7 @@ def exec_func(func_map: object, function_flag: str, args: dict):
         raise AttributeError(f"Command/Function {exec_func_flag} not found")
 
 
-def main(config_path: str, func_map: dict, func_args: dict = {}, **kwargs):
+def main(config_path: str, func_map: dict, func_args: dict = None, **kwargs):
     """Main command line interface function
 
     Args:
@@ -84,7 +84,7 @@ def main(config_path: str, func_map: dict, func_args: dict = {}, **kwargs):
         argument
 
         func_args (dict, Optional): Dictionary of arguments to pass to CLI
-        func, defaults to {}
+        func, defaults to None
 
     Kwargs:
         cli_version (str): Current version of the CLI program,
@@ -104,6 +104,7 @@ def main(config_path: str, func_map: dict, func_args: dict = {}, **kwargs):
         (exists as key in func_map), defaults to func
     """
     parser = build(path=config_path)
+    func_args = func_args or {}
 
     add_version(parser, kwargs.pop("cli_version", None))
 

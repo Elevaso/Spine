@@ -91,7 +91,7 @@ def has_working_thread(thread_list: list) -> bool:
 
     return False
 
-
+# pylint: disable=unsubscriptable-object
 def thread_metrics(thread_list: list) -> tuple[int, int, int]:
     """Retrieves built-in metrics from all threads
 
@@ -172,7 +172,8 @@ def __wait(thread_queue: queue.Queue, thread_list: list, interval: int = 5):
             __log_size(i, interval, thread_queue.qsize())
         else:
             raise Exception(
-                f"{thread_queue.qsize()} records in queue with no active threads"
+                f"{thread_queue.qsize()} records in queue with no active "
+                "threads"
             )
 
 

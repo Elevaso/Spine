@@ -5,7 +5,6 @@
 
 # Python Standard Libraries
 import datetime
-import context
 import unittest
 import time
 
@@ -13,6 +12,7 @@ import time
 
 
 # Code Repository Sub-Packages
+import context  # pylint: disable=unused-import
 from spine.dtm import now
 
 

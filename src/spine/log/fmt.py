@@ -8,13 +8,12 @@
 
 # Python Standard Libraries
 import datetime
-from dateutil import tz
 import logging
 import re
 import uuid
 
 # 3rd Party Libraries
-
+from dateutil import tz
 
 # Project Specific Libraries
 from spine.fmt.sub import sub_value
@@ -192,9 +191,7 @@ class BaseFormatter(logging.Formatter):
             self.__timestamp_key
             and self.__timestamp_key not in record.__dict__.keys()
         ):
-            output[self.__timestamp_key] = self.formatTime(
-                record, self.datefmt
-            )
+            output[self.__timestamp_key] = self.formatTime(record, self.datefmt)
 
         output.update(
             {
@@ -228,15 +225,16 @@ class BaseFormatter(logging.Formatter):
         }
 
         if self.output_func:
-            return self.output_func(output, extra_keys=extra_keys)
-        elif self.fmt:
-            return sub_value(self.fmt, output, pattern=DEFAULT_PATTERN)
-        else:
-            return output["msg"]
+            return self.output_func(
+                output, extra_keys=extra_keys
+            )  # pylint: disable=not-callable
 
-    def formatTime(
-        self, record: logging.LogRecord, datefmt: str = None
-    ) -> str:
+        if self.fmt:
+            return sub_value(self.fmt, output, pattern=DEFAULT_PATTERN)
+
+        return output["msg"]
+
+    def formatTime(self, record: logging.LogRecord, datefmt: str = None) -> str:
         """Format the time and converts to desired timezone
 
         Args:

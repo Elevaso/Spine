@@ -4,7 +4,6 @@
 # pylint: disable=missing-function-docstring
 
 # Python Standard Libraries
-import context
 import hashlib
 import os
 import unittest
@@ -14,6 +13,7 @@ import uuid
 
 
 # Code Repository Sub-Packages
+import context  # pylint: disable=unused-import
 from spine.calc import hsh
 
 

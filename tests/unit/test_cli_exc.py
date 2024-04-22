@@ -4,7 +4,6 @@
 # pylint: disable=missing-function-docstring
 
 # Python Standard Libraries
-import context
 from io import StringIO
 import os
 import unittest
@@ -14,6 +13,7 @@ from unittest import mock
 
 
 # Code Repository Sub-Packages
+import context  # pylint: disable=unused-import
 from spine.cli import exc
 
 

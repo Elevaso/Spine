@@ -4,7 +4,6 @@
 # pylint: disable=missing-function-docstring
 
 # Python Standard Libraries
-import context
 import inspect
 from inspect import FrameInfo
 import os
@@ -15,6 +14,7 @@ from unittest import mock
 
 
 # Code Repository Sub-Packages
+import context  # pylint: disable=unused-import
 from spine.app import caller
 
 

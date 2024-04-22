@@ -9,7 +9,7 @@
 # Python Standard Libraries
 import os
 import sys
-from typing import Tuple, Union
+from typing import Tuple  # pylint: disable=unused-import
 
 # 3rd Party Libraries
 
