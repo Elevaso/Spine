@@ -1,3 +1,6 @@
+"""
+Main packaging file
+"""
 #!/usr/bin/env python
 
 import os.path

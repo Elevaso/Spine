@@ -16,7 +16,7 @@ from spine.calc import hsh
 
 def hash_file(path: os.path) -> uuid.uuid4:
     """Simplified file hash function to compare results dynamically"""
-    hasher = hashlib.md5() # nosec
+    hasher = hashlib.md5()  # nosec
 
     path = os.path.expanduser(path)
 

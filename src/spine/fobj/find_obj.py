@@ -31,18 +31,23 @@ def find(path: str, file_name: str, search_dirs: int = 4) -> str:
     Returns:
         str: Path of file found, None if file is not found
     """
-    LOGGER.debug(f"Searching for {file_name} in {path}")
+    LOGGER.debug(
+        "Searching for {file_name} in {path}", file_name=file_name, path=path
+    )
 
     file_path = path
 
     for _ in range(0, search_dirs):
         if os.path.exists(os.path.join(file_path, file_name)):
             return file_path
-        else:
-            file_path = os.path.join(file_path, "..")
+
+        file_path = os.path.join(file_path, "..")
 
     LOGGER.info(
-        f"{file_name} not found within {search_dirs} directories of {path}"
+        "{file_name} not found within {search_dirs} directories of {path}",
+        file_name=file_name,
+        path=path,
+        search_dirs=search_dirs,
     )
 
     return None
@@ -63,6 +68,10 @@ def check(path: str, file_name: str) -> bool:
 
     if os.path.isfile(os.path.join(path, file_name)):
         return True
-    else:
-        LOGGER.warning(f"File does not exist at {path}/{file_name}")
-        return False
+
+    LOGGER.warning(
+        "File does not exist at {path}/{file_name}",
+        file_name=file_name,
+        path=path,
+    )
+    return False

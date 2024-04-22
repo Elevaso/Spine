@@ -20,14 +20,14 @@ By default, the function will look for :code:`.env` file within 4 directories of
 var
 ^^^
 
-get
-~~~
-The :meth:`spine.environ.var.get` function retrieves an environment variable or returns a default value if not found.
+get_var
+~~~~~~~~
+The :meth:`spine.environ.var.get_var` function retrieves an environment variable or returns a default value if not found.
 
-.. autofunction:: spine.environ.var.get
+.. autofunction:: spine.environ.var.get_var
 
-set
-~~~
-The :meth:`spine.environ.var.set` function creates or modifies an environment variable. It also provides the option to prevent overwrites or mocking the change.
+set_var
+~~~~~~~
+The :meth:`spine.environ.var.set_var` function creates or modifies an environment variable. It also provides the option to prevent overwrites or mocking the change.
 
-.. autofunction:: spine.environ.var.set
+.. autofunction:: spine.environ.var.set_var
