@@ -47,12 +47,12 @@ def iterate(
 
     if func:
         return __call_iterate_func(val, custom_type_map, copy_val, func)
-    else:
-        LOGGER.warning(
-            "Value object type %s does not support iteration,"
-            " returning original value",
-            type(val).__name__,
-        )
+
+    LOGGER.warning(
+        "Value object type %s does not support iteration,"
+        " returning original value",
+        type(val).__name__,
+    )
 
     return val
 
@@ -77,10 +77,11 @@ def __call_iterate_func(
     """
     if type(val) in custom_type_map.keys():
         return func(val)
-    elif copy_val:
+
+    if copy_val:
         return func(copy.deepcopy(val), custom_type_map)
-    else:
-        return func(val, custom_type_map)
+
+    return func(val, custom_type_map)
 
 
 def __iterate_list(val: list, custom_type_map: dict) -> list:
@@ -94,13 +95,13 @@ def __iterate_list(val: list, custom_type_map: dict) -> list:
     Returns:
         object: Modified object after function calls
     """
-    for n, item in enumerate(val):
+    for enum, item in enumerate(val):
         func = __get_iterate_func(type(item), custom_type_map)
 
         if type(item) in custom_type_map.keys():
-            val[n] = func(item)
+            val[enum] = func(item)
         elif func is not None:
-            val[n] = func(item, custom_type_map)
+            val[enum] = func(item, custom_type_map)
 
     return val
 

@@ -59,11 +59,11 @@ def load_env(
     file_path = find_obj.find(path, file_name, search_dirs)
 
     if file_path:
-        with open(os.path.join(file_path, file_name), "r") as f:
-            env_content = f.read() or ""
+        with open(os.path.join(file_path, file_name), "r") as file:
+            env_content = file.read() or ""
 
-        for e, i in enumerate(env_content.split("\n")):
-            __check(i, e, set_val=True, overwrite=overwrite)
+        for enum, item in enumerate(env_content.split("\n")):
+            __check(item, enum, set_val=True, overwrite=overwrite)
 
 
 def __check(
@@ -98,11 +98,11 @@ def __check(
 
         if key:
             return var.set_var(key, value, overwrite, set_val)
-        else:
-            LOGGER.debug(
-                "%(line_num_text)s does not match [\\w\\d]=[^#], skipping",
-                {"line_num_text": line_num_text}
-            )
+
+        LOGGER.debug(
+            "%(line_num_text)s does not match [\\w\\d]=[^#], skipping",
+            {"line_num_text": line_num_text}
+        )
 
     return False
 

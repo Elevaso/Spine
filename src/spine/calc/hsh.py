@@ -36,10 +36,11 @@ def hash_content(source: object) -> str:
     # TODO Hash directory content SPIN-19
     if isinstance(source, (dict, list)):
         return hash_string(json.dumps(source, default=str))
-    elif isinstance(source, (str, bytes)):
+
+    if isinstance(source, (str, bytes)):
         return hash_string(source)
-    else:
-        raise NotImplementedError(f"Hashing for {type(source)} Not Supported")
+
+    raise NotImplementedError(f"Hashing for {type(source)} Not Supported")
 
 
 def hash_file(path: str) -> str:

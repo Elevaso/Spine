@@ -19,7 +19,10 @@ LOGGER = logging.getLogger(__name__)
 
 
 def create(
-    threads: int, thread_class: object, params: dict, q: queue.Queue = None
+    threads: int,
+    thread_class: object,
+    params: dict,
+    thread_queue: queue.Queue = None,
 ) -> list:
     """Create threads for parallel processing
 
@@ -30,7 +33,7 @@ def create(
 
         params (dict): Dictionary of parameters to pass into thread
 
-        q (queue.Queue, Optional): Queue to retrieve items to work,
+        thread_queue (queue.Queue, Optional): Queue to retrieve items to work,
         defaults to None
 
     Raises:
@@ -46,21 +49,29 @@ def create(
 
     class_name = thread_class.__name__
 
-    for x in range(threads):
-        LOGGER.debug(f"Creating {class_name} thread {x}")
+    for enum in range(threads):
+        LOGGER.debug(
+            "Creating %(class_name)s thread %(enum)s",
+            {"enum": enum, "class_name": class_name},
+        )
 
-        if q:
-            thread = thread_class(worker_queue=q, thread_num=x, **params)
+        if thread_queue:
+            thread = thread_class(
+                worker_queue=thread_queue, thread_num=enum, **params
+            )
         else:
-            thread = thread_class(thread_num=x, **params)
+            thread = thread_class(thread_num=enum, **params)
 
-        thread.name = class_name + str(x)
+        thread.name = class_name + str(enum)
 
         thread.daemon = True
         thread_list.append(thread)
         thread.start()
 
-    LOGGER.info(f"Created {len(thread_list)} {class_name} thread(s)")
+    LOGGER.info(
+        "Created %(thread_list_len)s %(class_name)s thread(s)",
+        {"thread_list_len": len(thread_list), "class_name": class_name},
+    )
 
     return thread_list
 
@@ -74,8 +85,8 @@ def has_working_thread(thread_list: list) -> bool:
     Returns:
         bool: True/False if has at least one thread alive
     """
-    for t in thread_list:
-        if t.is_alive():
+    for thread in thread_list:
+        if thread.is_alive():
             return True
 
     return False
@@ -94,19 +105,21 @@ def thread_metrics(thread_list: list) -> tuple[int, int, int]:
             threads: Number of threads
     """
     return (
-        sum([t.rows_processed for t in thread_list]),
-        sum([t.rows_errored for t in thread_list]),
+        sum([thread.rows_processed for thread in thread_list]),
+        sum([thread.rows_errored for thread in thread_list]),
         len(thread_list),
     )
 
 
-def wait_queue_empty(q: queue.Queue, thread_list: list, interval: int = 5):
+def wait_queue_empty(
+    thread_queue: queue.Queue, thread_list: list, interval: int = 5
+):
     """Check if a queue is empty and outputs logging messages, additionally
     checks if there are threads alive to prevent waiting for a queue to finish
     if all worker threads have stopped
 
     Args:
-        q (queue.Queue): Queue to check for empty status
+        thread_queue (queue.Queue): Queue to check for empty status
 
         thread_list (list): List of threads working the queue
 
@@ -123,16 +136,16 @@ def wait_queue_empty(q: queue.Queue, thread_list: list, interval: int = 5):
         Exception: If queue is not empty and no working threads in thread_list
     """
     if interval > 0:
-        __wait(q, thread_list, interval)
+        __wait(thread_queue, thread_list, interval)
 
-    q.join()
+    thread_queue.join()
 
 
-def __wait(q: queue.Queue, thread_list: list, interval: int = 5):
+def __wait(thread_queue: queue.Queue, thread_list: list, interval: int = 5):
     """Loop until queue is empty
 
     Args:
-        q (queue.Queue): Queue to check for empty status
+        thread_queue (queue.Queue): Queue to check for empty status
 
         thread_list (list): List of threads working the queue
 
@@ -150,16 +163,16 @@ def __wait(q: queue.Queue, thread_list: list, interval: int = 5):
     """
     i = 0
 
-    while not q.empty():
+    while not thread_queue.empty():
         time.sleep(1)
 
         if has_working_thread(thread_list):
             i += 1
 
-            __log_size(i, interval, q.qsize())
+            __log_size(i, interval, thread_queue.qsize())
         else:
             raise Exception(
-                f"{q.qsize()} records in queue with no active threads"
+                f"{thread_queue.qsize()} records in queue with no active threads"
             )
 
 
@@ -174,5 +187,5 @@ def __log_size(i: int, interval: int, q_size: int):
         q_size (int): Current queue size
     """
     if i == interval:
-        LOGGER.info(f"{q_size} Records in Queue")
+        LOGGER.info("%(q_size)s Records in Queue", {"q_size": q_size})
         i = 0

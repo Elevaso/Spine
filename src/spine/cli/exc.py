@@ -62,7 +62,8 @@ def exec_func(func_map: object, function_flag: str, args: dict):
 
     if exec_func_flag is None:
         return
-    elif isinstance(func_map, dict):
+
+    if isinstance(func_map, dict):
         func = func_map.get(exec_func_flag, None)
     else:
         func = getattr(func_map, exec_func_flag)

@@ -50,8 +50,8 @@ def build(path: str = None, arg_dict: dict = None) -> argparse.ArgumentParser:
             raise FileNotFoundError(f"Arg config path {path} not found")
 
         # TODO Add support for other file formats SPIN-22, SPIN-23, SPIN-24
-        with open(path, "r") as f:
-            config = json.load(f)
+        with open(path, "r") as file:
+            config = json.load(file)
     else:
         config = arg_dict
 
@@ -83,7 +83,8 @@ def __validate_config(config: object):
     """
     if config is None:
         raise AttributeError("Valid path or arg_dict value must be provided")
-    elif not isinstance(config, (dict, OrderedDict)):
+
+    if not isinstance(config, (dict, OrderedDict)):
         raise TypeError(
             f"Invalid type of {type(config)} for path"
             " content or arg_dict value",
@@ -131,7 +132,10 @@ def __process_arguments(parser_obj: object, arg_list: list):
 
         arg_list (list): List of arguments to process
     """
-    LOGGER.debug(f"Processing {len(arg_list)} arguments")
+    LOGGER.debug(
+        "Processing %(arg_list_len)s arguments",
+        {"arg_list_len": len(arg_list)},
+    )
 
     for item in arg_list:
         item_type = item.pop("type", "argument")
