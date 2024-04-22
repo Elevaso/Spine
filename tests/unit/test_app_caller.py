@@ -14,15 +14,19 @@ from unittest import mock
 # Code Repository Sub-Packages
 from spine.app import caller
 
+
 def mock_inspect():
-    return [FrameInfo(
-        inspect.currentframe(),
-        os.path.split(__file__)[0],
-        25,
-        TestGetCaller.test_caller,
-        ['unittest.main() # pragma: no cover\n'],
-        0,
-    )]
+    return [
+        FrameInfo(
+            inspect.currentframe(),
+            os.path.split(__file__)[0],
+            25,
+            TestGetCaller.test_caller,
+            ["unittest.main() # pragma: no cover\n"],
+            0,
+        )
+    ]
+
 
 class TestGetCaller(unittest.TestCase):
     def test_caller(self):

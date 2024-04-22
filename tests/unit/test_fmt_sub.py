@@ -64,7 +64,8 @@ class TestSubValue(SubValueBase):
         )
 
         self.assertIn(
-            "Value object type bytes does not support iteration, returning original value",
+            "Value object type bytes does not support iteration, "
+            "returning original value",
             log.output[0],
         )
 
@@ -191,7 +192,8 @@ class TestSubValue(SubValueBase):
         self.assertEqual(output, value)
 
         self.assertIn(
-            "Value object type int does not support iteration, returning original value",
+            "Value object type int does not support iteration, "
+            "returning original value",
             log.output[0],
         )
 

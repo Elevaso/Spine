@@ -47,6 +47,7 @@ def find(path: str, file_name: str, search_dirs: int = 4) -> str:
 
     return None
 
+
 def check(path: str, file_name: str) -> bool:
     """Function to check if a file exists
 

@@ -123,19 +123,56 @@ def wait_queue_empty(q: queue.Queue, thread_list: list, interval: int = 5):
         Exception: If queue is not empty and no working threads in thread_list
     """
     if interval > 0:
-        i = 0
-        while not q.empty():
-            time.sleep(1)
-
-            if has_working_thread(thread_list):
-                i += 1
-
-                if i == interval:
-                    LOGGER.info(f"{q.qsize()} Records in Queue")
-                    i = 0
-            else:
-                raise Exception(
-                    f"{q.qsize()} records in queue with no active threads"
-                )
+        __wait(q, thread_list, interval)
 
     q.join()
+
+
+def __wait(q: queue.Queue, thread_list: list, interval: int = 5):
+    """Loop until queue is empty
+
+    Args:
+        q (queue.Queue): Queue to check for empty status
+
+        thread_list (list): List of threads working the queue
+
+        interval (int, Optional): Interval in seconds to print queue depth,
+        defaults to 5
+
+        .. note::
+
+            If set to 0, the queue will not be actively checked while printing
+            status message, instead it will wait until the queue is empty
+            through the queue.join() function
+
+    Raises:
+        Exception: If queue is not empty and no working threads in thread_list
+    """
+    i = 0
+
+    while not q.empty():
+        time.sleep(1)
+
+        if has_working_thread(thread_list):
+            i += 1
+
+            __log_size(i, interval, q.qsize())
+        else:
+            raise Exception(
+                f"{q.qsize()} records in queue with no active threads"
+            )
+
+
+def __log_size(i: int, interval: int, q_size: int):
+    """Log the current size of queue if interval matches
+
+    Args:
+        i (int): Current second
+
+        interval (int): Interval at which to print
+
+        q_size (int): Current queue size
+    """
+    if i == interval:
+        LOGGER.info(f"{q_size} Records in Queue")
+        i = 0

@@ -89,7 +89,6 @@ def __check(
     Returns:
         bool: True/False if set
     """
-    return_val = False
     line_num_text = f"Line number {line_num}" if line_num else "Content"
 
     content = content.strip()
@@ -97,14 +96,14 @@ def __check(
     if __valid(content, line_num_text):
         key, value = split_key_val(content)
 
-        if key and value:
-            return_val = var.set(key, value, overwrite, set_val)
+        if key:
+            return var.set(key, value, overwrite, set_val)
         else:
             LOGGER.debug(
                 f"{line_num_text} does not match [\\w\\d]=[^#], skipping"
             )
 
-    return return_val
+    return False
 
 
 def __valid(content: str, line_num_text: str) -> bool:
@@ -118,9 +117,7 @@ def __valid(content: str, line_num_text: str) -> bool:
     Returns:
         bool: True/False if content is valid for continuing
     """
-    if content is None:
-        LOGGER.debug(f"{line_num_text} is empty, skipping")  # pragma: no cover
-    elif len(content) == 0:
+    if len(content) == 0 or content is None:
         LOGGER.debug(f"{line_num_text} is blank, skipping")
     elif content[0] == "#":
         LOGGER.debug(f"{line_num_text} is comment, skipping")

@@ -72,7 +72,7 @@ class TestSetup(unittest.TestCase):
     def test_default_config_overwrite_level(self):
         config.setup(log_format="json", log_level="WARNING")
 
-    # TODO Add test case once common items are added
+    # TODO Add test case once common items are added SPIN-25
     # def test_append_common(self):
     #     os.environ["AWS_REGION"] = "test-us"
 

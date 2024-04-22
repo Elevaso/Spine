@@ -39,7 +39,8 @@ class TestIterate(unittest.TestCase):
 
         self.assertIsNone(output)
         self.assertIn(
-            "Value object type NoneType does not support iteration, returning original value",
+            "Value object type NoneType does not support iteration, returning "
+            "original value",
             log.output[0],
         )
 

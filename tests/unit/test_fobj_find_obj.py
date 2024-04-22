@@ -52,7 +52,8 @@ class TestFind(unittest.TestCase):
 
         self.assertIsNone(val)
         self.assertIn(
-            f"hello.world not found within 4 directories of {os.path.dirname(__file__)}",
+            "hello.world not found within 4 directories of "
+            f"{os.path.dirname(__file__)}",
             log.output[-1],
         )
 

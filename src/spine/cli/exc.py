@@ -79,20 +79,28 @@ def main(config_path: str, func_map: dict, func_args: dict = {}, **kwargs):
     Args:
         config_path (str): Path to configuration file
 
-        func_map (dict): Dictionary of functions to execute based on CLI func argument
+        func_map (dict): Dictionary of functions to execute based on CLI func
+        argument
 
-        func_args (dict, Optional): Dictionary of arguments to pass to CLI func, defaults to {}
+        func_args (dict, Optional): Dictionary of arguments to pass to CLI
+        func, defaults to {}
 
     Kwargs:
-        cli_version (str): Current version of the CLI program, defaults to None
+        cli_version (str): Current version of the CLI program,
+        defaults to None
 
-        quiet_flag (str): Name of the CLI argument for quiet logging, defaults to quiet
+        quiet_flag (str): Name of the CLI argument for quiet logging,
+        defaults to quiet
 
-        debug_flag (str): Name of the CLI argument for verbose logging, defaults to verbose
+        debug_flag (str): Name of the CLI argument for verbose logging,
+        defaults to verbose
 
-        log_format (str): Type of log format (see spine.log.config.DEFAULT_LOG_CONFIG for possible values), defaults to standard
+        log_format (str): Type of log format (see
+        spine.log.config.DEFAULT_LOG_CONFIG for possible values), defaults
+        to standard
 
-        function_flag (str): Name of the CLI argument for the function name (exists as key in func_map), defaults to func
+        function_flag (str): Name of the CLI argument for the function name
+        (exists as key in func_map), defaults to func
     """
     parser = build(path=config_path)
 

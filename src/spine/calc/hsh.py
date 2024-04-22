@@ -1,7 +1,7 @@
 """
 .. module:: hsh
-   :platform: Unix, Windows
-   :synopsis: Hash data or file contents
+    :platform: Unix, Windows
+    :synopsis: Hash data or file contents
 """
 
 # Python Standard Libraries
@@ -32,10 +32,10 @@ def hash_content(source: object) -> str:
     Returns:
         str: String of the hash in uuid format
     """
-    # TODO Check if file is an archive file and hash the contents as a dir
+    # TODO Check if file is an archive file and hash the contents as a dir SPIN-20
 
     # if isinstance(source, (os.path)):
-    #     # TODO Finish hash of directory code
+    #     # TODO Hash directory content SPIN-19
     #     return hash_file(source)
     # el
     if isinstance(source, (dict, list)):
@@ -55,7 +55,7 @@ def hash_file(path: str) -> str:
     Returns:
         str: String of the hash in uuid format
     """
-    hasher = hashlib.md5()
+    hasher = hashlib.md5() # nosec
 
     path = os.path.expanduser(path)
 
@@ -77,7 +77,7 @@ def hash_string(content: str) -> str:
     Returns:
         str: String of the hash in uuid format
     """
-    hasher = hashlib.md5()
+    hasher = hashlib.md5() # nosec
 
     if not isinstance(content, bytes):
         hasher.update(content.encode())

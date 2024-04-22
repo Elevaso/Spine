@@ -4,7 +4,6 @@
     :synopsis: Main module entry point
 """
 # Python Standard Libraries
-from __future__ import annotations
 import logging
 
 # 3rd Party Libraries

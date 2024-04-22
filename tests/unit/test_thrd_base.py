@@ -27,6 +27,7 @@ class MockThread(base.BaseThread):
     run_func = test_run_function
     stop_func = test_del_function
 
+
 class MockFailureOnRunThread(base.BaseThread):
     def test_init_function(self, **kwargs):
         pass
@@ -40,6 +41,7 @@ class MockFailureOnRunThread(base.BaseThread):
     init_func = test_init_function
     run_func = test_run_function
     stop_func = test_del_function
+
 
 class MockFailureOnDelThread(base.BaseThread):
     def test_run_function(self, **kwargs):

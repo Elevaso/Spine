@@ -72,7 +72,9 @@ class BaseThread(threading.Thread):
             )
 
     def process_queue(self):
-        """Process a record from shared queue if provided during initialization"""
+        """Process a record from shared queue if provided during
+        initialization
+        """
         while True:
             try:
                 record = self.queue.get()

@@ -114,7 +114,9 @@ class TestThreadMetrics(unittest.TestCase):
         q.put({"test": "data"})
 
         with self.assertLogs(level="ERROR") as log:
-            thread_list = mgr.create(2, MockFailureOnRunThread, {"target": ""}, q)
+            thread_list = mgr.create(
+                2, MockFailureOnRunThread, {"target": ""}, q
+            )
 
         q.join()
 

@@ -11,9 +11,10 @@
         * log.fmt_standard
         * thrd.base
         * thrd.mgr
-* Updated
+* Changed
     * Added check function
         * fobj.find_obj
+    * Code quality fixes
 
 ## 0.1.0 - March 19, 2024
 

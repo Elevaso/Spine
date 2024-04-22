@@ -20,7 +20,7 @@ from spine.fobj.find_obj import check
 LOGGER = logging.getLogger(__name__)
 
 
-# TODO Add support for parents https://docs.python.org/3/library/argparse.html#parents
+# TODO Add support for parents SPIN-21
 
 
 def build(path: str = None, arg_dict: dict = None) -> argparse.ArgumentParser:
@@ -33,13 +33,9 @@ def build(path: str = None, arg_dict: dict = None) -> argparse.ArgumentParser:
         to None
 
     Raises:
-        AttributeError: If path is invalid/empty and arg_dict is None
-
         FileNotFoundError: If file path does not exist
 
         TypeError: If file is not properly formatted
-
-        TypeError: If arg_dict is not dict type
 
     Returns:
         argparse.ArgumentParser
@@ -53,7 +49,7 @@ def build(path: str = None, arg_dict: dict = None) -> argparse.ArgumentParser:
         if not check(*os.path.split(path)):
             raise FileNotFoundError(f"Arg config path {path} not found")
 
-        # TODO Add support for other file formats (YAML, INI/TOML)
+        # TODO Add support for other file formats SPIN-22, SPIN-23, SPIN-24
         with open(path, "r") as f:
             config = json.load(f)
 
@@ -61,13 +57,7 @@ def build(path: str = None, arg_dict: dict = None) -> argparse.ArgumentParser:
     else:
         config = arg_dict
 
-    if config is None:
-        raise AttributeError("Valid path or arg_dict value must be provided")
-    elif not isinstance(config, (dict, OrderedDict)):
-        raise TypeError(
-            f"Invalid type of {type(config)} for path"
-            " content or arg_dict value",
-        )
+    __validate_config(config)
 
     parser_obj = argparse.ArgumentParser(
         description=config.get("description", None)
@@ -80,6 +70,26 @@ def build(path: str = None, arg_dict: dict = None) -> argparse.ArgumentParser:
     LOGGER.debug("Finished processing configuration")
 
     return parser_obj
+
+
+def __validate_config(config: object):
+    """Validate the configuration exists and in proper format
+
+    Args:
+        config (object): CLI configuration object
+
+    Raises:
+        AttributeError: If path is invalid/empty and arg_dict is None
+
+        TypeError: If arg_dict is not dict type
+    """
+    if config is None:
+        raise AttributeError("Valid path or arg_dict value must be provided")
+    elif not isinstance(config, (dict, OrderedDict)):
+        raise TypeError(
+            f"Invalid type of {type(config)} for path"
+            " content or arg_dict value",
+        )
 
 
 def __add_argument(parser_obj: object, **kwargs):
