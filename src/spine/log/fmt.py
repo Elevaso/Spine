@@ -116,11 +116,7 @@ class BaseFormatter(logging.Formatter):
         if self.__timezone != self.default_timezone and not tz.gettz(
             self.__timezone
         ):
-            raise ValueError(
-                "Timezone {timezone} is invalid".format(
-                    timezone=self.__timezone
-                )
-            )
+            raise ValueError(f"Timezone {self.__timezone} is invalid")
 
         # This is only used if the session_key does not exist in the log
         # message
@@ -225,9 +221,8 @@ class BaseFormatter(logging.Formatter):
         }
 
         if self.output_func:
-            return self.output_func(
-                output, extra_keys=extra_keys
-            )  # pylint: disable=not-callable
+            # pylint: disable=not-callable
+            return self.output_func(output, extra_keys=extra_keys)
 
         if self.fmt:
             return sub_value(self.fmt, output, pattern=DEFAULT_PATTERN)

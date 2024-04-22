@@ -76,9 +76,10 @@ def __call_iterate_func(
     Returns:
         object: Modified object after function calls
     """
+    # pylint: disable=unidiomatic-typecheck
     if (
         type(val) in custom_type_map.keys()
-    ):  # pylint: disable=unidiomatic-typecheck
+    ):
         return func(val)
 
     if copy_val:
@@ -101,9 +102,10 @@ def __iterate_list(val: list, custom_type_map: dict) -> list:
     for enum, item in enumerate(val):
         func = __get_iterate_func(type(item), custom_type_map)
 
+        # pylint: disable=unidiomatic-typecheck
         if (
             type(item) in custom_type_map.keys()
-        ):  # pylint: disable=unidiomatic-typecheck
+        ):
             val[enum] = func(item)
         elif func is not None:
             val[enum] = func(item, custom_type_map)
@@ -127,9 +129,10 @@ def __iterate_dict(val: dict, custom_type_map: dict) -> dict:
     for key, value in val.items():
         func = __get_iterate_func(type(value), custom_type_map)
 
+        # pylint: disable=unidiomatic-typecheck
         if (
             type(value) in custom_type_map.keys()
-        ):  # pylint: disable=unidiomatic-typecheck
+        ):
             output[key] = func(value)
         elif func is not None:
             output[key] = func(value, custom_type_map)
