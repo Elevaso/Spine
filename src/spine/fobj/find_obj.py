@@ -45,7 +45,8 @@ def find(path: str, file_name: str, search_dirs: int = 4) -> str:
         file_path = os.path.join(file_path, "..")
 
     LOGGER.info(
-        "%(file_name)s not found within %(search_dirs)s directories of %(path)s",
+        "%(file_name)s not found within %(search_dirs)s directories of "
+        "%(path)s",
         {"file_name": file_name, "path": path, "search_dirs": search_dirs},
     )
 
