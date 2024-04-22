@@ -33,11 +33,7 @@ def hash_content(source: object) -> str:
         str: String of the hash in uuid format
     """
     # TODO Check if file is an archive file SPIN-20
-
-    # if isinstance(source, (os.path)):
-    #     # TODO Hash directory content SPIN-19
-    #     return hash_file(source)
-    # el
+    # TODO Hash directory content SPIN-19
     if isinstance(source, (dict, list)):
         return hash_string(json.dumps(source, default=str))
     elif isinstance(source, (str, bytes)):

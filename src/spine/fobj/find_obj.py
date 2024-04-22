@@ -32,7 +32,8 @@ def find(path: str, file_name: str, search_dirs: int = 4) -> str:
         str: Path of file found, None if file is not found
     """
     LOGGER.debug(
-        "Searching for {file_name} in {path}", file_name=file_name, path=path
+        "Searching for %(file_name)s in %(path)s",
+        {"file_name": file_name, "path": path},
     )
 
     file_path = path
@@ -44,10 +45,8 @@ def find(path: str, file_name: str, search_dirs: int = 4) -> str:
         file_path = os.path.join(file_path, "..")
 
     LOGGER.info(
-        "{file_name} not found within {search_dirs} directories of {path}",
-        file_name=file_name,
-        path=path,
-        search_dirs=search_dirs,
+        "%(file_name)s not found within %(search_dirs)s directories of %(path)s",
+        {"file_name": file_name, "path": path, "search_dirs": search_dirs},
     )
 
     return None
@@ -70,8 +69,7 @@ def check(path: str, file_name: str) -> bool:
         return True
 
     LOGGER.warning(
-        "File does not exist at {path}/{file_name}",
-        file_name=file_name,
-        path=path,
+        "File does not exist at %(path)s/%(file_name)s",
+        {"file_name": file_name, "path": path},
     )
     return False

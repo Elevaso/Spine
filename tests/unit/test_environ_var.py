@@ -74,7 +74,7 @@ class TestSetVar(unittest.TestCase):
     def test_mock(self):
         self.assertEqual(os.environ["hello"], "world")
 
-        val = var.set("hello", "there", set_val=False)
+        val = var.set_var("hello", "there", set_val=False)
 
         self.assertIsInstance(val, bool)
         self.assertTrue(val)

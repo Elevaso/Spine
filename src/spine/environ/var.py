@@ -53,14 +53,14 @@ def set_var(
     """
     if set_val and name in os.environ.keys() and not overwrite:
         LOGGER.debug(
-            "Overwrite is False, skipping environment variable {name}",
-            name=name,
+            "Overwrite is False, skipping environment variable %(name)s",
+            {"name": name},
         )
 
         return False
 
     if set_val:
-        LOGGER.debug("Setting environment variable {name}", name=name)
+        LOGGER.debug("Setting environment variable %(name)s", {"name": name})
 
         os.environ[name] = val
 

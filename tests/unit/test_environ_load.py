@@ -93,7 +93,7 @@ class TestLoad(unittest.TestCase):
             self.cleanup(path, prefix)
 
     def test_no_file(self):
-        with self.assertLogs(level="DEBUG") as log:
+        with self.assertLogs(level="INFO") as log:
             load.load_env(search_dirs=2)
 
         self.assertIn(

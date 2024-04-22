@@ -100,7 +100,8 @@ def __check(
             return var.set_var(key, value, overwrite, set_val)
         else:
             LOGGER.debug(
-                f"{line_num_text} does not match [\\w\\d]=[^#], skipping"
+                "%(line_num_text)s does not match [\\w\\d]=[^#], skipping",
+                {"line_num_text": line_num_text}
             )
 
     return False
@@ -119,11 +120,13 @@ def __valid(content: str, line_num_text: str) -> bool:
     """
     if len(content) == 0 or content is None:
         LOGGER.debug(
-            "{line_num_text} is blank, skipping", line_num_text=line_num_text
+            "%(line_num_text)s is blank, skipping",
+            {"line_num_text": line_num_text},
         )
     elif content[0] == "#":
         LOGGER.debug(
-            "{line_num_text} is comment, skipping", line_num_text=line_num_text
+            "%(line_num_text)s is comment, skipping",
+            {"line_num_text": line_num_text},
         )
     else:
         return True

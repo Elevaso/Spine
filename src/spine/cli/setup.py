@@ -52,8 +52,6 @@ def build(path: str = None, arg_dict: dict = None) -> argparse.ArgumentParser:
         # TODO Add support for other file formats SPIN-22, SPIN-23, SPIN-24
         with open(path, "r") as f:
             config = json.load(f)
-
-        # config = load_file.load(*os.path.split(path))
     else:
         config = arg_dict
 

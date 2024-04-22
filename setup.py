@@ -1,7 +1,7 @@
+#!/usr/bin/env python
 """
 Main packaging file
 """
-#!/usr/bin/env python
 
 import os.path
 import sys
