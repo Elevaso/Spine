@@ -12,6 +12,9 @@ plugins:
     enabled: true
     PYTHONPATH:
       - src
+    checks:
+      bad-continuation:
+        enabled: false
   sonar-python:
     enabled: true
     config:
