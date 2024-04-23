@@ -1,6 +1,6 @@
 # Change Log
 
-## 0.2.0 - Month DD, YYYY
+## 0.2.0 - April 23, 2024
 * Added
     * Initial module code
         * cacl.hsh
