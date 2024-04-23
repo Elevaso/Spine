@@ -1,16 +1,23 @@
 {
-  "python.formatting.provider": "black",
   "python.testing.unittestEnabled": true,
   "python.testing.pytestEnabled": false,
-  "python.linting.pylintEnabled": true,
-  "python.linting.enabled": true,
+  "pylint.enabled": true,
+  "[python]": {
+    "editor.defaultFormatter": "ms-python.black-formatter"
+  },
   "pylint.args": [
-    "--rcfile=pyproject.toml"
+    "--rcfile=.pylintrc"
   ],
   "black-formatter.args": [
-      "--config=pyproject.toml"
+    "--config",
+    "pyproject.toml"
   ],
-  "todo-tree.general.tags": ["BUG", "NOTE","FIXME","TODO"],
+  "todo-tree.general.tags": [
+    "BUG",
+    "NOTE",
+    "FIXME",
+    "TODO"
+  ],
   "todo-tree.highlights.customHighlight": {
     "BUG": {
       "icon": "bug",
