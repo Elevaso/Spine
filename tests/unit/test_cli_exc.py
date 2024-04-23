@@ -56,7 +56,7 @@ class TestArgsToDict(unittest.TestCase):
 
     @mock.patch("sys.argv", BASIC_ARGS)
     def test_config_not_found(self):
-        with self.assertRaises(FileNotFoundError) as cm:
+        with self.assertRaises(FileNotFoundError) as exce:
             exc.main(
                 config_path="hello.txt",
                 func_map=DEFAULT_FUNC_MAP,
@@ -64,7 +64,7 @@ class TestArgsToDict(unittest.TestCase):
             )
 
         self.assertEqual(
-            str(cm.exception), "Arg config path hello.txt not found"
+            str(exce.exception), "Arg config path hello.txt not found"
         )
 
     @mock.patch("sys.argv", [__file__, "config", "show"])
@@ -82,8 +82,8 @@ class TestArgsToDict(unittest.TestCase):
 
     @mock.patch("sys.argv", BASIC_ARGS)
     def test_exec_func_not_found(self):
-        with self.assertRaises(AttributeError) as cm:
-            with self.assertLogs(level="INFO") as log:
+        with self.assertRaises(AttributeError) as exce:
+            with self.assertLogs(level="INFO"):
                 with mock.patch("sys.stdout", new=StringIO()):
                     exc.main(
                         config_path=DEFAULT_PATH,
@@ -92,7 +92,7 @@ class TestArgsToDict(unittest.TestCase):
                     )
 
         self.assertEqual(
-            str(cm.exception), "Command/Function list_config not found"
+            str(exce.exception), "Command/Function list_config not found"
         )
 
 

@@ -13,8 +13,8 @@ import unittest
 
 # Code Repository Sub-Packages
 import context  # pylint: disable=unused-import
-from spine.thrd import mgr
 from test_thrd_base import MockThread, MockFailureOnRunThread
+from spine.thrd import mgr
 
 
 class TestCreate(unittest.TestCase):
@@ -24,12 +24,12 @@ class TestCreate(unittest.TestCase):
         return mgr.create(num, MockThread, {"target": ""}, thread_queue)
 
     def test_invalid_thread_num(self):
-        with self.assertRaises(ValueError) as cm:
+        with self.assertRaises(ValueError) as exce:
             _ = self.create_threads(0)
 
         self.assertEqual(
             "Threads must be greater than 0",
-            str(cm.exception),
+            str(exce.exception),
         )
 
     def test_basic(self):
@@ -120,7 +120,7 @@ class TestThreadMetrics(unittest.TestCase):
 
         thread_queue.put({"test": "data"})
 
-        with self.assertLogs(level="ERROR") as log:
+        with self.assertLogs(level="ERROR"):
             thread_list = mgr.create(
                 2, MockFailureOnRunThread, {"target": ""}, thread_queue
             )
@@ -180,12 +180,12 @@ class TestWaitQueueEmpty(unittest.TestCase):
 
         thread_list = self.create_threads()
 
-        with self.assertRaises(Exception) as cm:
+        with self.assertRaises(Exception) as exce:
             mgr.wait_queue_empty(thread_queue, thread_list, interval=1)
 
         self.assertEqual(
             "1 records in queue with no active threads",
-            str(cm.exception),
+            str(exce.exception),
         )
 
     def test_empty_queue(self):

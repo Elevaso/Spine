@@ -18,19 +18,19 @@ from spine.cli import setup
 
 class TestBuildArgparse(unittest.TestCase):
     def test_none(self):
-        with self.assertRaises(AttributeError) as cm:
+        with self.assertRaises(AttributeError) as exce:
             _ = setup.build()
 
         self.assertEqual(
-            str(cm.exception), "Valid path or arg_dict value must be provided"
+            str(exce.exception), "Valid path or arg_dict value must be provided"
         )
 
     def test_invalid_type(self):
-        with self.assertRaises(TypeError) as cm:
+        with self.assertRaises(TypeError) as exce:
             _ = setup.build(arg_dict=["hello"])
 
         self.assertEqual(
-            str(cm.exception),
+            str(exce.exception),
             "Invalid type of <class 'list'> for path content or"
             " arg_dict value",
         )
@@ -52,8 +52,8 @@ class TestBuildArgparse(unittest.TestCase):
                 os.path.dirname(__file__), "..", "samples", "argparse.json"
             ),
             "r",
-        ) as f:
-            parser = setup.build(arg_dict=json.loads(f.read()))
+        ) as file:
+            parser = setup.build(arg_dict=json.loads(file.read()))
 
         self.assertEqual(parser.description, "Test CLI Description")
 

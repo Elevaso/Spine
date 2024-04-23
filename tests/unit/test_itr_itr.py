@@ -20,8 +20,9 @@ class TestIterate(unittest.TestCase):
         log_level: str = "NOTSET",
         value: object = None,
         copy_val: bool = True,
-        custom_type_map: dict = {},
+        custom_type_map: dict = None,
     ) -> context.Tuple[object, object]:
+        custom_type_map = custom_type_map or {}
         if log_level == "NOTSET":
             output = itr.iterate(value, copy_val, custom_type_map)
 
@@ -71,7 +72,7 @@ class TestIterate(unittest.TestCase):
     def test_custom_type_map_int(self):
         value = 1
 
-        output, log = self.call_function_for_log(
+        output, _ = self.call_function_for_log(
             log_level="NOTSET",
             value=value,
             custom_type_map={int: self.custom_func},
@@ -82,7 +83,7 @@ class TestIterate(unittest.TestCase):
     def test_custom_type_map_nested(self):
         value = [{"Test": 1}]
 
-        output, log = self.call_function_for_log(
+        output, _ = self.call_function_for_log(
             log_level="NOTSET",
             value=value,
             custom_type_map={int: self.custom_func},

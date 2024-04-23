@@ -42,11 +42,11 @@ class TestHashContent(unittest.TestCase):
         self.assertEqual(output, "b10a8db1-64e0-7541-05b7-a99be72e3fe5")
 
     def test_not_implemented(self):
-        with self.assertRaises(NotImplementedError) as cm:
+        with self.assertRaises(NotImplementedError) as exc:
             _ = hsh.hash_content(("Hello", "World"))
 
         self.assertEqual(
-            str(cm.exception), "Hashing for <class 'tuple'> Not Supported"
+            str(exc.exception), "Hashing for <class 'tuple'> Not Supported"
         )
 
 

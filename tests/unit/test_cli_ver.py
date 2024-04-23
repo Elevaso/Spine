@@ -24,7 +24,6 @@ class TestAddVersion(unittest.TestCase):
         ver.add_version(parser_obj, version)
 
     def test_no_version(self):
-        output = StringIO()
         parser_obj = argparse.ArgumentParser()
 
         with self.assertLogs(level="DEBUG") as log:
@@ -41,11 +40,11 @@ class TestAddVersion(unittest.TestCase):
 
         self.call_func(parser_obj, "1.0.0")
 
-        with self.assertRaises(SystemExit) as cm:
+        with self.assertRaises(SystemExit) as exc:
             with mock.patch("sys.stdout", new=output):
                 _ = parser_obj.parse_args()
 
-        self.assertEqual(str(cm.exception), "0")
+        self.assertEqual(str(exc.exception), "0")
         self.assertEqual(output.getvalue(), "1.0.0\n")
 
 

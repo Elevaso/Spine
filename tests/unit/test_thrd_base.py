@@ -16,6 +16,7 @@ import context  # pylint: disable=unused-import
 from spine.thrd import base
 
 
+# pylint: disable=unused-argument
 class MockThread(base.BaseThread):
     def test_init_function(self, **kwargs):
         pass
@@ -31,12 +32,13 @@ class MockThread(base.BaseThread):
     stop_func = test_del_function
 
 
+# pylint: disable=unused-argument
 class MockFailureOnRunThread(base.BaseThread):
     def test_init_function(self, **kwargs):
         pass
 
     def test_run_function(self, **kwargs):
-        raise Exception("Test Exception")
+        raise AttributeError("Test Exception")
 
     def test_del_function(self, **kwargs):
         pass
@@ -51,7 +53,7 @@ class MockFailureOnDelThread(base.BaseThread):
         time.sleep(1)
 
     def test_del_function(self, **kwargs):
-        raise Exception("Test Exception")
+        raise ValueError("Test Exception")
 
     run_func = test_run_function
     stop_func = test_del_function
@@ -62,16 +64,19 @@ class TestBaseThread(unittest.TestCase):
         self,
         thread_class: object,
         threads: int = 1,
-        q: queue.Queue = None,
-        params: dict = {},
+        thread_queue: queue.Queue = None,
+        params: dict = None,
     ) -> list:
+        params = params or {}
         thread_list = []
 
         class_name = thread_class.__name__
 
         for x in range(threads):
-            if q:
-                thread = thread_class(worker_queue=q, thread_num=x, **params)
+            if thread_queue:
+                thread = thread_class(
+                    worker_queue=thread_queue, thread_num=x, **params
+                )
             else:
                 thread = thread_class(thread_num=x, **params)
 
@@ -89,25 +94,29 @@ class TestBaseThread(unittest.TestCase):
         _ = [t.join() for t in thread_list]
 
     def test_queue(self):
-        q = queue.Queue()
-        q.put({"test": "value"})
+        thread_queue = queue.Queue()
+        thread_queue.put({"test": "value"})
 
-        thread_list = self.create_threads(MockThread, 2, q=q)
+        thread_list = self.create_threads(
+            MockThread, 2, thread_queue=thread_queue
+        )
 
-        q.join()
+        thread_queue.join()
 
         rows_processsed = sum([t.rows_processed for t in thread_list])
 
         self.assertEqual(rows_processsed, 1)
 
     def test_queue_error(self):
-        q = queue.Queue()
-        q.put({"test": "value"})
+        thread_queue = queue.Queue()
+        thread_queue.put({"test": "value"})
 
         with self.assertLogs(level="ERROR") as log:
-            thread_list = self.create_threads(MockFailureOnRunThread, 2, q=q)
+            thread_list = self.create_threads(
+                MockFailureOnRunThread, 2, thread_queue=thread_queue
+            )
 
-            q.join()
+            thread_queue.join()
 
         rows_processsed = sum([t.rows_processed for t in thread_list])
         rows_errored = sum([t.rows_errored for t in thread_list])

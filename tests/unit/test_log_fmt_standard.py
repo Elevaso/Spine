@@ -22,9 +22,9 @@ class TestStandardLogging(unittest.TestCase):
             logging.getLogger(__name__), "DEBUG"
         )
 
-    def setFormat(self, include_extra: bool = False, format: str = None):
+    def set_format(self, include_extra: bool = False, fmt: str = None):
         formatter = fmt_standard.StandardFormatter(
-            include_extra=include_extra, format=format
+            include_extra=include_extra, format=fmt
         )
         self.log_handler.setFormatter(formatter)
 
@@ -58,15 +58,15 @@ class TestStandardLogging(unittest.TestCase):
         }
 
     def test_invalid_tz(self):
-        with self.assertRaises(ValueError) as cm:
+        with self.assertRaises(ValueError) as exce:
             logging.config.dictConfig(self.get_config(timezone_name="hello"))
 
         self.assertEqual(
-            str(cm.exception), "Unable to configure formatter 'standard'"
+            str(exce.exception), "Unable to configure formatter 'standard'"
         )
 
     def test_default_format(self):
-        self.setFormat()
+        self.set_format()
 
         msg = "testing logging format"
         self.logger.info(msg)
@@ -75,7 +75,7 @@ class TestStandardLogging(unittest.TestCase):
         self.assertEqual(log, msg)
 
     def test_extra_without_including(self):
-        self.setFormat()
+        self.set_format()
 
         msg = "testing logging format"
         self.logger.info(msg, extra={"test": "value"})
@@ -84,7 +84,7 @@ class TestStandardLogging(unittest.TestCase):
         self.assertEqual(log, msg)
 
     def test_extra(self):
-        self.setFormat(include_extra=True)
+        self.set_format(include_extra=True)
 
         msg = "testing logging format"
         extra_vals = {"test": "value"}
@@ -99,7 +99,7 @@ class TestStandardLogging(unittest.TestCase):
         )
 
     def test_custom_format(self):
-        self.setFormat(format="%(levelname)s")
+        self.set_format(fmt="%(levelname)s")
 
         msg = "testing logging format"
         extra_vals = {"test": "value"}
@@ -109,7 +109,7 @@ class TestStandardLogging(unittest.TestCase):
         self.assertEqual(log, "INFO")
 
     def test_custom_format_w_extra(self):
-        self.setFormat(format="%(levelname)s", include_extra=True)
+        self.set_format(fmt="%(levelname)s", include_extra=True)
 
         msg = "testing logging format"
         extra_vals = {"test": "value"}
