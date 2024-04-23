@@ -1,5 +1,5 @@
 """
-.. module:: iter
+.. module:: itr
     :platform: Unix, Windows
     :synopsis: Iterate collections
 """
@@ -21,7 +21,7 @@ LOGGER = logging.getLogger(__name__)
 def iterate(
     val: object,
     copy_val: bool = True,
-    custom_type_map: dict = {},
+    custom_type_map: dict = None,
 ) -> object:
     """Iterate a nested list, dict, tuple object to execute function on
     string values
@@ -33,7 +33,7 @@ def iterate(
         copied prior to modifying, defaults to True
 
         custom_type_map (dict, Optional): Optional mapping of type and
-        functions, defaults to {}
+        functions, defaults to None
 
     Raises:
         NotImplementedError: If value object type is not supported
@@ -44,15 +44,16 @@ def iterate(
         object: Modified object after function calls
     """
     func = __get_iterate_func(type(val), custom_type_map)
+    custom_type_map = custom_type_map or {}
 
     if func:
         return __call_iterate_func(val, custom_type_map, copy_val, func)
-    else:
-        LOGGER.warning(
-            "Value object type %s does not support iteration,"
-            " returning original value",
-            type(val).__name__,
-        )
+
+    LOGGER.warning(
+        "Value object type %s does not support iteration,"
+        " returning original value",
+        type(val).__name__,
+    )
 
     return val
 
@@ -75,12 +76,16 @@ def __call_iterate_func(
     Returns:
         object: Modified object after function calls
     """
-    if type(val) in custom_type_map.keys():
+    # pylint: disable=unidiomatic-typecheck
+    if (
+        type(val) in custom_type_map.keys()
+    ):
         return func(val)
-    elif copy_val:
+
+    if copy_val:
         return func(copy.deepcopy(val), custom_type_map)
-    else:
-        return func(val, custom_type_map)
+
+    return func(val, custom_type_map)
 
 
 def __iterate_list(val: list, custom_type_map: dict) -> list:
@@ -94,13 +99,16 @@ def __iterate_list(val: list, custom_type_map: dict) -> list:
     Returns:
         object: Modified object after function calls
     """
-    for n, item in enumerate(val):
+    for enum, item in enumerate(val):
         func = __get_iterate_func(type(item), custom_type_map)
 
-        if type(item) in custom_type_map.keys():
-            val[n] = func(item)
+        # pylint: disable=unidiomatic-typecheck
+        if (
+            type(item) in custom_type_map.keys()
+        ):
+            val[enum] = func(item)
         elif func is not None:
-            val[n] = func(item, custom_type_map)
+            val[enum] = func(item, custom_type_map)
 
     return val
 
@@ -121,7 +129,10 @@ def __iterate_dict(val: dict, custom_type_map: dict) -> dict:
     for key, value in val.items():
         func = __get_iterate_func(type(value), custom_type_map)
 
-        if type(value) in custom_type_map.keys():
+        # pylint: disable=unidiomatic-typecheck
+        if (
+            type(value) in custom_type_map.keys()
+        ):
             output[key] = func(value)
         elif func is not None:
             output[key] = func(value, custom_type_map)
@@ -131,14 +142,13 @@ def __iterate_dict(val: dict, custom_type_map: dict) -> dict:
     return output
 
 
-def __get_iterate_func(obj_type: object, custom_func_map: dict = {}) -> object:
+def __get_iterate_func(obj_type: object, custom_func_map: dict) -> object:
     """Get iterate function to execute based on object type
 
     Args:
         obj_type (object): Type of the object
 
-        custom_func_map (dict, Optional): Optional mapping of functions,
-        defaults to {}
+        custom_func_map (dict): Mapping of functions
 
     Returns:
         object representing function

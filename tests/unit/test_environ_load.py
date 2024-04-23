@@ -1,7 +1,9 @@
 # pyright: reportMissingImports=false
+# pylint: disable=missing-module-docstring
+# pylint: disable=missing-class-docstring
+# pylint: disable=missing-function-docstring
 
 # Python Standard Libraries
-import context
 import os
 import unittest
 
@@ -9,6 +11,7 @@ import unittest
 
 
 # Code Repository Sub-Packages
+import context  # pylint: disable=unused-import
 from spine.environ import load
 
 
@@ -93,7 +96,7 @@ class TestLoad(unittest.TestCase):
             self.cleanup(path, prefix)
 
     def test_no_file(self):
-        with self.assertLogs(level="DEBUG") as log:
+        with self.assertLogs(level="INFO") as log:
             load.load_env(search_dirs=2)
 
         self.assertIn(

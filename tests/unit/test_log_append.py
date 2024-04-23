@@ -1,7 +1,9 @@
 # pyright: reportMissingImports=false
+# pylint: disable=missing-module-docstring
+# pylint: disable=missing-class-docstring
+# pylint: disable=missing-function-docstring
 
 # Python Standard Libraries
-import context
 import json
 import logging
 import unittest
@@ -10,6 +12,7 @@ import unittest
 
 
 # Code Repository Sub-Packages
+import context  # pylint: disable=unused-import
 from common import setup_logger
 from spine.log import append, fmt_json
 

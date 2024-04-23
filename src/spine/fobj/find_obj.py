@@ -31,18 +31,46 @@ def find(path: str, file_name: str, search_dirs: int = 4) -> str:
     Returns:
         str: Path of file found, None if file is not found
     """
-    LOGGER.debug(f"Searching for {file_name} in {path}")
+    LOGGER.debug(
+        "Searching for %(file_name)s in %(path)s",
+        {"file_name": file_name, "path": path},
+    )
 
     file_path = path
 
     for _ in range(0, search_dirs):
         if os.path.exists(os.path.join(file_path, file_name)):
             return file_path
-        else:
-            file_path = os.path.join(file_path, "..")
+
+        file_path = os.path.join(file_path, "..")
 
     LOGGER.info(
-        f"{file_name} not found within {search_dirs} directories of {path}"
+        "%(file_name)s not found within %(search_dirs)s directories of "
+        "%(path)s",
+        {"file_name": file_name, "path": path, "search_dirs": search_dirs},
     )
 
     return None
+
+
+def check(path: str, file_name: str) -> bool:
+    """Function to check if a file exists
+
+    Args:
+        path (str): Directory path of the file to load
+
+        file_name (str): Name of the file (with extension)
+
+    Returns:
+        bool: True/False if file exists
+    """
+    path = os.path.expanduser(path)
+
+    if os.path.isfile(os.path.join(path, file_name)):
+        return True
+
+    LOGGER.warning(
+        "File does not exist at %(path)s/%(file_name)s",
+        {"file_name": file_name, "path": path},
+    )
+    return False

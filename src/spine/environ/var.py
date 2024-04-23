@@ -17,7 +17,7 @@ import os
 LOGGER = logging.getLogger(__name__)
 
 
-def get(name: str, default_val: object = None) -> object:
+def get_var(name: str, default_val: object = None) -> object:
     """Retrieve environment variable value if exists
 
     Args:
@@ -32,7 +32,7 @@ def get(name: str, default_val: object = None) -> object:
     return os.environ.get(name, default_val)
 
 
-def set(
+def set_var(
     name: str, val: str, overwrite: bool = False, set_val: bool = True
 ) -> bool:
     """Set or update an environment variable
@@ -53,21 +53,15 @@ def set(
     """
     if set_val and name in os.environ.keys() and not overwrite:
         LOGGER.debug(
-            f"Overwrite is False, skipping environment variable {name}"
+            "Overwrite is False, skipping environment variable %(name)s",
+            {"name": name},
         )
 
         return False
-    elif set_val:
-        LOGGER.debug(f"Setting environment variable {name}")
 
-        try:
-            os.environ[name] = val
-        except Exception as e:  # pragma: no cover
-            LOGGER.warning(
-                f"Exception while setting environment variable {name}",
-                extra={"error": str(e)},
-                exc_info=True,
-            )  # pragma: no cover
-            return False  # pragma: no cover
+    if set_val:
+        LOGGER.debug("Setting environment variable %(name)s", {"name": name})
+
+        os.environ[name] = val
 
     return True

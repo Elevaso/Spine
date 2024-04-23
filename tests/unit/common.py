@@ -3,6 +3,7 @@
     :platform: Unix, Windows
     :synopsis: Common functions/classes used by multiple tests
 """
+# pylint: disable=missing-class-docstring, missing-function-docstring
 
 # Python Standard Libraries
 from io import StringIO

@@ -8,7 +8,7 @@
 import logging
 import os
 import re
-from typing import Tuple
+from typing import Tuple, Pattern
 
 # 3rd Party Libraries
 
@@ -59,11 +59,11 @@ def load_env(
     file_path = find_obj.find(path, file_name, search_dirs)
 
     if file_path:
-        with open(os.path.join(file_path, file_name), "r") as f:
-            env_content = f.read() or ""
+        with open(os.path.join(file_path, file_name), "r") as file:
+            env_content = file.read() or ""
 
-        for e, i in enumerate(env_content.split("\n")):
-            __check(i, e, set_val=True, overwrite=overwrite)
+        for enum, item in enumerate(env_content.split("\n")):
+            __check(item, enum, set_val=True, overwrite=overwrite)
 
 
 def __check(
@@ -89,7 +89,6 @@ def __check(
     Returns:
         bool: True/False if set
     """
-    return_val = False
     line_num_text = f"Line number {line_num}" if line_num else "Content"
 
     content = content.strip()
@@ -97,14 +96,15 @@ def __check(
     if __valid(content, line_num_text):
         key, value = split_key_val(content)
 
-        if key and value:
-            return_val = var.set(key, value, overwrite, set_val)
-        else:
-            LOGGER.debug(
-                f"{line_num_text} does not match [\\w\\d]=[^#], skipping"
-            )
+        if key:
+            return var.set_var(key, value, overwrite, set_val)
 
-    return return_val
+        LOGGER.debug(
+            "%(line_num_text)s does not match [\\w\\d]=[^#], skipping",
+            {"line_num_text": line_num_text}
+        )
+
+    return False
 
 
 def __valid(content: str, line_num_text: str) -> bool:
@@ -118,12 +118,16 @@ def __valid(content: str, line_num_text: str) -> bool:
     Returns:
         bool: True/False if content is valid for continuing
     """
-    if content is None:
-        LOGGER.debug(f"{line_num_text} is empty, skipping")  # pragma: no cover
-    elif len(content) == 0:
-        LOGGER.debug(f"{line_num_text} is blank, skipping")
+    if len(content) == 0 or content is None:
+        LOGGER.debug(
+            "%(line_num_text)s is blank, skipping",
+            {"line_num_text": line_num_text},
+        )
     elif content[0] == "#":
-        LOGGER.debug(f"{line_num_text} is comment, skipping")
+        LOGGER.debug(
+            "%(line_num_text)s is comment, skipping",
+            {"line_num_text": line_num_text},
+        )
     else:
         return True
 
@@ -132,14 +136,14 @@ def __valid(content: str, line_num_text: str) -> bool:
 
 # TODO Move this to anvil for ANV-3
 def split_key_val(
-    content: str, pattern: re.Pattern = KEY_VALUE_REGEX
+    content: str, pattern: Pattern = KEY_VALUE_REGEX
 ) -> Tuple[str, str]:
     """Function to split a string into Key/Value pair
 
     Args:
         content (str): String to split
 
-        pattern (re.Pattern, Optional): Regular Expression Pattern for
+        pattern (Pattern, Optional): Regular Expression Pattern for
         splitting string, defaults to KEY=VAL expression
 
     Returns:
@@ -149,5 +153,5 @@ def split_key_val(
         match_set = pattern.match(content)
 
         return match_set.group("key").strip(), match_set.group("value").strip()
-    else:
-        return None, None
+
+    return None, None

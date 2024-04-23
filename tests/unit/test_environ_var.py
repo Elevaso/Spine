@@ -1,7 +1,9 @@
 # pyright: reportMissingImports=false
+# pylint: disable=missing-module-docstring
+# pylint: disable=missing-class-docstring
+# pylint: disable=missing-function-docstring
 
 # Python Standard Libraries
-import context
 import os
 import unittest
 
@@ -9,26 +11,27 @@ import unittest
 
 
 # Code Repository Sub-Packages
+import context  # pylint: disable=unused-import
 from spine.environ import var
 
 
-class TestGet(unittest.TestCase):
+class TestGetVar(unittest.TestCase):
     def setUp(self) -> None:
         os.environ["hello"] = "world"
 
     def test_exists(self):
-        val = var.get("hello")
+        val = var.get_var("hello")
 
         self.assertIsInstance(val, str)
         self.assertEqual(val, "world")
 
     def test_not_exists(self):
-        val = var.get("hello1")
+        val = var.get_var("hello1")
 
         self.assertIsNone(val)
 
 
-class TestSet(unittest.TestCase):
+class TestSetVar(unittest.TestCase):
     def setUp(self) -> None:
         os.environ["hello"] = "world"
 
@@ -38,7 +41,7 @@ class TestSet(unittest.TestCase):
         level = kwargs.get("level", "DEBUG")
 
         with self.assertLogs(level=level) as log:
-            val = var.set(name, val, overwrite, set_val)
+            val = var.set_var(name, val, overwrite, set_val)
 
         return log, val
 
@@ -74,7 +77,7 @@ class TestSet(unittest.TestCase):
     def test_mock(self):
         self.assertEqual(os.environ["hello"], "world")
 
-        val = var.set("hello", "there", set_val=False)
+        val = var.set_var("hello", "there", set_val=False)
 
         self.assertIsInstance(val, bool)
         self.assertTrue(val)

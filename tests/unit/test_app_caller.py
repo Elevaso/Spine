@@ -1,7 +1,9 @@
 # pyright: reportMissingImports=false
+# pylint: disable=missing-module-docstring
+# pylint: disable=missing-class-docstring
+# pylint: disable=missing-function-docstring
 
 # Python Standard Libraries
-import context
 import inspect
 from inspect import FrameInfo
 import os
@@ -12,17 +14,22 @@ from unittest import mock
 
 
 # Code Repository Sub-Packages
+import context  # pylint: disable=unused-import
 from spine.app import caller
 
+
 def mock_inspect():
-    return [FrameInfo(
-        inspect.currentframe(),
-        os.path.split(__file__)[0],
-        25,
-        TestGetCaller.test_caller,
-        ['unittest.main() # pragma: no cover\n'],
-        0,
-    )]
+    return [
+        FrameInfo(
+            inspect.currentframe(),
+            os.path.split(__file__)[0],
+            25,
+            TestGetCaller.test_caller,
+            ["unittest.main() # pragma: no cover\n"],
+            0,
+        )
+    ]
+
 
 class TestGetCaller(unittest.TestCase):
     def test_caller(self):

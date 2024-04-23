@@ -1,7 +1,9 @@
 # pyright: reportMissingImports=false
+# pylint: disable=missing-module-docstring
+# pylint: disable=missing-class-docstring
+# pylint: disable=missing-function-docstring
 
 # Python Standard Libraries
-import context
 import os
 import unittest
 
@@ -9,7 +11,27 @@ import unittest
 
 
 # Code Repository Sub-Packages
+import context  # pylint: disable=unused-import
 from spine.fobj import find_obj
+
+
+class TestCheck(unittest.TestCase):
+    def test_found(self):
+        val = find_obj.check(os.path.dirname(__file__), "context.py")
+
+        self.assertTrue(val)
+
+    def test_not_found(self):
+        with self.assertLogs(level="WARN") as log:
+            val = find_obj.check(
+                os.path.dirname(__file__), "hello.world"
+            )
+
+        self.assertFalse(val)
+        self.assertIn(
+            f"File does not exist at {os.path.dirname(__file__)}",
+            log.output[-1],
+        )
 
 
 class TestFind(unittest.TestCase):
@@ -33,7 +55,8 @@ class TestFind(unittest.TestCase):
 
         self.assertIsNone(val)
         self.assertIn(
-            f"hello.world not found within 4 directories of {os.path.dirname(__file__)}",
+            "hello.world not found within 4 directories of "
+            f"{os.path.dirname(__file__)}",
             log.output[-1],
         )
 

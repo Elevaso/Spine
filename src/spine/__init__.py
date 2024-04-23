@@ -4,7 +4,6 @@
     :synopsis: Main module entry point
 """
 # Python Standard Libraries
-from __future__ import annotations
 import logging
 
 # 3rd Party Libraries
@@ -13,7 +12,7 @@ import logging
 # Code Repository Sub-Packages
 
 
-__version__ = "0.1.0"
+__version__ = "0.2.0"
 
 # Defining a logger for this library to separate out log messages from
 # applications leveraging the library

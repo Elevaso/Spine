@@ -183,7 +183,12 @@ The :meth:`spine.log.fmt.BaseFormatter` class provides the foundational function
 
 1. Date/time formatting
 2. Timezone support (defaults to UTC)
-3. Support for the :code:`extra` keyword argument support
+3. Support for the :code:`extra` keyword argument
+
+.. code-block::
+
+   LOGGER.info('testing', extra={'test1': 'hello', 'test2': 'there'})
+
 4. Session identifier (defaults to UUID if none provided) 
 
 .. autoclass:: spine.log.fmt.BaseFormatter
@@ -196,4 +201,81 @@ JsonFormatter
 ~~~~~~~~~~~~~~
 The :meth:`spine.log.fmt_json.JsonFormatter` inherits from the :meth:`spine.log.fmt.BaseFormatter` but provides an output function to convert logs into JSON format.
 
+Using the default JSON logging configuration file and setup from `Default Config`_ and running the following code
+
+.. code-block::
+
+   LOGGER.info('test')
+
+will output something like:
+
+.. code-block:: JSON
+   :linenos:
+
+   {"name": "root", "msg": "test", "args": [], "levelname": "INFO", "levelno": 20, , "filename": "log.py", "module": "log", "exc_info": null, "exc_text": null, "stack_info": null, "lineno": 211, "funcName": "<module>", "created": 1575907675.176455, "msecs": 176.45502090454102, "relativeCreated": 1.3270378112792969, "thread": 4610047424, "threadName": "MainThread", "processName": "MainProcess", "process": 62034, "message": "test", "asctime": "2019-12-09 16:07:55.176455 +0000"}
+
+To add additional key/value pairs, you can use the :code:`extra` keyword argument in the logger:
+
+.. code-block::
+
+   LOGGER.info('testing', extra={'test1': 'hello', 'test2': 'there'})
+
+or provide the raw JSON/dictionary object type to the logger:
+
+.. code-block::
+
+   LOGGER.info({'test1': 'hello', 'test2': 'there'})
+
+.. note::
+
+    The only difference between the two methods is that the first contains a msg key (with the value of testing) whereas the second does not (since the message was only the contents of the extra keyword arguments).
+
+    The other difference is that if you decided to not format the output in Json format (e.g. using a standard CLI print type format), the extra keyword arguments are not automatically printed to the console, so only the values in the message (in the first usage example) will be shown. For example:
+
+    .. code-block::
+
+        import logging
+
+        logging.basicConfig(
+            level=logging.DEBUG,
+            format="...%(asctime)s...%(message)s",
+            datefmt="%Y-%m-%d %H:%M:%S",
+        )
+
+        LOGGER.info({'test1': 'hello', 'test2': 'there'})
+        LOGGER.info('testing', extra={'test1': 'hello', 'test2': 'there'})
+
+    will output:
+
+    .. code-block:: bash
+        :linenos:
+
+        ...2019-12-09 10:21:50...{'test1': 'hello', 'test2': 'there'}
+        ...2019-12-09 10:21:50...testing
+
+    This problem can be overcome by using the formatter_standard.StandardFormatter class, which is intended for terminal output, but will include an extra keyword arguments in a standard format
+
 .. autoclass:: spine.log.fmt_json.JsonFormatter
+
+fmt_standard
+^^^^^^^^^^^^
+
+StandardFormatter
+~~~~~~~~~~~~~~~~~
+The :meth:`spine.log.fmt_standard.StandardFormatter` inherits from the :meth:`spine.log.fmt.BaseFormatter` but provides an output function to convert logs in standard (i.e. Command Line Interface) format.
+
+The benefit to using this formatter is that the :code:`extra` keyword arguments are displayed, allowing you to easily switch between JSON and standard (CLI) formatting.
+
+A logging message like:
+
+.. code-block::
+
+   LOGGER.info('testing', extra={'test1': 'hello', 'test2': 'there'})
+
+would be displayed as:
+
+.. code-block:: shell
+
+    [INFO]2024-04-19 10:21:50..module.function..testing || Extra || [test1 || hello]..[test2 || there]
+
+.. autoclass:: spine.log.fmt_standard.StandardFormatter

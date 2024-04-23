@@ -48,7 +48,7 @@ Tracker = "https://elevaso.atlassian.net/browse/SPIN"
 Changelog = "https://core-elevaso-libraries-f91e91dd6b5cf1513b3c3ab02ff13569300f3f5a.gitlab.io/main/change_log.html"
 
 [tool.bandit]
-exclude_dirs = ["build","docs", "dist","tests","tools"]
+exclude_dirs = ["build","docs","dist","tests","tools"]
 number = 4
 recursive = true
 targets = "src"
@@ -64,6 +64,9 @@ branch = true
 
 [tool.coverage.report]
 fail_under = 100
+
+[tool.pylint.'MESSAGES CONTROL']
+disable = ["bad-continuation"]
 
 [tool.pylint.'REPORTS']
 evaluation="10.0 - ((float(5 * error + warning + refactor + convention) / statement) * 10)"

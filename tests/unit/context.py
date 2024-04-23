@@ -4,11 +4,12 @@
     :synopsis: File for all test scripts to reference back to the main
     toolkit library
 """
+# pylint: disable=missing-class-docstring, missing-function-docstring
 
 # Python Standard Libraries
 import os
 import sys
-from typing import Tuple, Union
+from typing import Tuple  # pylint: disable=unused-import
 
 # 3rd Party Libraries
 

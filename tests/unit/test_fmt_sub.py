@@ -1,7 +1,9 @@
 # pyright: reportMissingImports=false
+# pylint: disable=missing-module-docstring
+# pylint: disable=missing-class-docstring
+# pylint: disable=missing-function-docstring
 
 # Python Standard Libraries
-import context
 import re
 from io import StringIO
 import unittest
@@ -10,6 +12,7 @@ import unittest
 
 
 # Code Repository Sub-Packages
+import context  # pylint: disable=unused-import
 from spine.fmt import sub
 
 
@@ -64,7 +67,8 @@ class TestSubValue(SubValueBase):
         )
 
         self.assertIn(
-            "Value object type bytes does not support iteration, returning original value",
+            "Value object type bytes does not support iteration, "
+            "returning original value",
             log.output[0],
         )
 
@@ -191,7 +195,8 @@ class TestSubValue(SubValueBase):
         self.assertEqual(output, value)
 
         self.assertIn(
-            "Value object type int does not support iteration, returning original value",
+            "Value object type int does not support iteration, "
+            "returning original value",
             log.output[0],
         )
 

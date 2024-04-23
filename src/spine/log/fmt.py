@@ -8,13 +8,12 @@
 
 # Python Standard Libraries
 import datetime
-from dateutil import tz
 import logging
 import re
 import uuid
 
 # 3rd Party Libraries
-
+from dateutil import tz  # pylint: disable=import-error
 
 # Project Specific Libraries
 from spine.fmt.sub import sub_value
@@ -42,6 +41,7 @@ RESERVED_ATTRS = (
     "processName",
     "relativeCreated",
     "stack_info",
+    "taskName",
     "thread",
     "threadName",
 )
@@ -116,11 +116,7 @@ class BaseFormatter(logging.Formatter):
         if self.__timezone != self.default_timezone and not tz.gettz(
             self.__timezone
         ):
-            raise ValueError(
-                "Timezone {timezone} is invalid".format(
-                    timezone=self.__timezone
-                )
-            )
+            raise ValueError(f"Timezone {self.__timezone} is invalid")
 
         # This is only used if the session_key does not exist in the log
         # message
@@ -191,9 +187,7 @@ class BaseFormatter(logging.Formatter):
             self.__timestamp_key
             and self.__timestamp_key not in record.__dict__.keys()
         ):
-            output[self.__timestamp_key] = self.formatTime(
-                record, self.datefmt
-            )
+            output[self.__timestamp_key] = self.formatTime(record, self.datefmt)
 
         output.update(
             {
@@ -227,15 +221,15 @@ class BaseFormatter(logging.Formatter):
         }
 
         if self.output_func:
+            # pylint: disable=not-callable
             return self.output_func(output, extra_keys=extra_keys)
-        elif self.fmt:
-            return sub_value(self.fmt, output, pattern=DEFAULT_PATTERN)
-        else:
-            return output["msg"]
 
-    def formatTime(
-        self, record: logging.LogRecord, datefmt: str = None
-    ) -> str:
+        if self.fmt:
+            return sub_value(self.fmt, output, pattern=DEFAULT_PATTERN)
+
+        return output["msg"]
+
+    def formatTime(self, record: logging.LogRecord, datefmt: str = None) -> str:
         """Format the time and converts to desired timezone
 
         Args:

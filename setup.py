@@ -1,8 +1,11 @@
 #!/usr/bin/env python
+"""
+Main packaging file
+"""
 
 import os.path
-from setuptools import setup
 import sys
+from setuptools import setup
 
 ROOT = os.path.abspath(os.path.dirname(__file__))
 

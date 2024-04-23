@@ -131,8 +131,8 @@ def __get_log_config(
 
     if log_config is not None:
         return log_config
-    else:
-        raise ValueError("log_config cannot be None")  # pragma: no cover
+
+    raise ValueError("log_config cannot be None")  # pragma: no cover
 
 
 def __get_log_format(log_format: str = None) -> str:
@@ -179,9 +179,9 @@ def __append_extra(log_config: dict, extra_vals: dict) -> dict:
     Args:
         extra_vals (dict): Dictionary of extra values
     """
-    for _, v in log_config.get("formatters", {}).items():
-        if v.get("()", None) == "spine.log.fmt_json.JsonFormatter":
-            v["extra"] = {**v.get("extra", {}), **extra_vals}
+    for _, value in log_config.get("formatters", {}).items():
+        if value.get("()", None) == "spine.log.fmt_json.JsonFormatter":
+            value["extra"] = {**value.get("extra", {}), **extra_vals}
 
     return log_config
 
@@ -200,8 +200,8 @@ def __load_file(path: str, name: str) -> dict:
     if os.path.exists(os.path.join(path, name)) and os.path.isfile(
         os.path.join(path, name)
     ):
-        with open(os.path.join(path, name), "r") as f:
-            return json.load(f)
+        with open(os.path.join(path, name), "r") as file:
+            return json.load(file)
     else:
         return None
 
@@ -220,7 +220,9 @@ def __load_log_config(path: str, log_format: str) -> dict:
     log_config = __load_file(*(os.path.split(path)))
 
     if not log_config:
-        LOGGER.debug(f"File not found at {path}, using library default")
+        LOGGER.debug(
+            "File not found at %(path)s, using library default", {"path": path}
+        )
         log_config = __load_file(
             *(os.path.split(DEFAULT_LOG_CONFIG.get(log_format)))
         )

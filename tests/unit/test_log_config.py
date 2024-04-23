@@ -1,17 +1,18 @@
 # pyright: reportMissingImports=false
+# pylint: disable=missing-module-docstring
+# pylint: disable=missing-class-docstring
+# pylint: disable=missing-function-docstring
 
 # Python Standard Libraries
-import context
 from io import StringIO
-import json
 import logging
-import os
 import unittest
 
 # 3rd Party Libraries
 
 
 # Code Repository Sub-Packages
+import context  # pylint: disable=unused-import
 from common import setup_logger
 from spine.log import config
 
@@ -72,7 +73,7 @@ class TestSetup(unittest.TestCase):
     def test_default_config_overwrite_level(self):
         config.setup(log_format="json", log_level="WARNING")
 
-    # TODO Add test case once common items are added
+    # TODO Add test case once common items are added SPIN-25
     # def test_append_common(self):
     #     os.environ["AWS_REGION"] = "test-us"
 
